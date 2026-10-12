@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "2by": {
+      "type": "http",
+      "url": "https://2by.app/mcp"
+    }
+  }
+}

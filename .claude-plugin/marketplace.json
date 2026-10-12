@@ -1,0 +1,16 @@
+{
+  "name": "2by",
+  "description": "The 2by plugin: write 2by models with Claude, checked by 2by itself.",
+  "owner": {
+    "name": "Code House Productions",
+    "url": "https://2by.app"
+  },
+  "plugins": [
+    {
+      "name": "2by",
+      "source": "./plugins/2by",
+      "description": "Write 2by models with Claude: the model guide as a skill, and 2by's own checks as tools.",
+      "version": "0.1.0"
+    }
+  ]
+}

@@ -1,0 +1,783 @@
+# Shop loft — the fixture this tool was built from.
+# Edit anything here; every panel on the right re-derives.
+#
+# Dimensions accept either form: 16.25 or 16'-3". Also 8'6", 8' 6",
+# 8', 6", 8'-6-1/2" and 1/2". Feet-and-inches are converted on read,
+# so mix them however you like.
+
+project:
+  slug: shop-loft
+  title: Freestanding Timber Loft
+  revision: r28
+  date: 2026-09-11
+  live_psf: 50            # Shop loft: 40 is a house floor, 50 adds a quarter for the
+                          # boxes and tools that live up here. Not for pallet racking
+                          # (that is 125). A future living-space conversion is covered.
+  dead_psf: 10            # 2x10 frame + 3/4" T&G. Add 5 if you frame partitions later.
+  allowable_psf: 1500     # NC clay over ~60 loads of compacted fill. IRC R401.4.1
+                          # presumes 1,500 for clay; no test on the fill, so no more.
+  waste_pct: 10
+  deck_top_ft: 8'-9-1/4"   # deck level = LVL top (8'-0") plus a 2x10 (9-1/4").
+                           # Flush beams top out here; the two LVL DROP beams
+                           # (HDR, INNER-TRACK) top out at 8'-0" so the posts
+                           # under them cut from 8' 6x6 stock.
+
+slab:
+  field_in: 5             # MEASURED 2026-09-08 at the P6 pad excavation: the
+                          # field slab is 5", not the 4" assumed from r1. The
+                          # 42" x 42" cut-out exposed a full section and it was
+                          # read at the edge of the old pour, so this one is a
+                          # fact about this building, not a presumption.
+  perimeter_in: 12        # MEASURED. 12" deep x 12" wide thickening all round.
+  perimeter_width_in: 12  # The base rails cover part of its width, so the
+                          # EXPOSED bearing face is narrower than 12" — that
+                          # reduction is site.rail_in's job, not this number's:
+                          # this is the concrete, the rails are what sits on it.
+  perimeter_confidence: measured
+
+# POST BASES. No post touches concrete: every one stands in a Simpson Strong-Tie
+# standoff base, which holds the end grain up out of the water that sits on a
+# slab. The standoff is REAL LENGTH. A post's foot starts standoff_in above the
+# concrete, so every post CUTS THAT MUCH SHORTER than its bearing height — beam
+# tops, notch shoulders and the deck do not move, the wood under them does.
+# Declared here rather than read off the bracket in hardware-catalog.yaml,
+# because the cut length has to be known before the tool picks a part, and
+# because standing the posts off the slab is a decision about this building,
+# not a fact about a product.
+post_bases:
+  standoff_in: 1          # PUBLISHED: the whole AB series stands the post 1" off the
+                          # concrete, and every base scheduled below is AB series. The
+                          # tool cross-checks this against the part it actually
+                          # schedules, so substituting a base with a different standoff
+                          # cannot quietly leave every post the wrong length.
+  confidence: catalog     # catalog = published product dimension · measured = taped on site
+  part_by_size:           # what goes under a post unless the post names its own
+    6x6: ABA66Z           # nailed adjustable base, 11,415 lb — every 6x6 except P6
+    4x6: ABA46Z           # 10,500 lb; P4 and P8 carry 1,192 and 506 lb
+                          # NAILING ACCESS IS GEOMETRY, NOT A PART CHOICE: every AB
+                          # base nails through flanges on two OPPOSITE faces, so a
+                          # post tight into a corner of the building's base rails
+                          # cannot reach one of them, and rotating the base only
+                          # swaps which one. r26 slid P1 and P4 3-1/2" inboard for
+                          # exactly that, and r27 did the same for P11's south face.
+                          # The base-access finding tests every post; no post is in a
+                          # corner any more, so every base on the job can take its
+                          # full nail pattern — several of them rotated 90° first.
+                          # NO GROUT under the standoff plate: grout is how you exceed
+                          # the table, not how you reach it, and nothing here needs to
+                          # exceed it — the worst ABA post is P10 at 5,347 lb, 47%.
+
+# PLY FASTENING. What holds a multi-ply beam together as one member. This is
+# NOT one screw for the whole job: the screw has to be shorter than the pack it
+# goes through, or the point stands proud of the far face, and engineered plies
+# take a different screw from sawn ones. So the schedule is written per total
+# thickness, and the tool matches each beam's plies x ply thickness against it.
+# An unmatched thickness is an ERROR rather than a silent fallback — the wrong
+# length here is the kind of mistake you only find after it is driven.
+ply_fastening:
+  rows: 2                 # rows along the beam, staggered
+  spacing_in: 24          # per row
+  end_extra: 2            # extra screws per row within a foot of each end
+  confidence: table       # from the makers' schedules, not a conservative guess
+  source: Boise Cascade EWP Specifier Guide, U.S. East, MTP-E7000 Rev. 07/26, p.27 (multiple-ply connections)
+  # WHAT THE MAKER'S TABLE SAYS, and why this still reads 2 rows at 24".
+  # Boise publishes NAIL and BOLT schedules only. Two 1-3/4" plies at 11-7/8"
+  # and less, TOP-LOADED: 2 rows of 16d box/sinker at 12" o.c., good for 400 plf
+  # arriving from one side. The same pack SIDE-LOADED: 470 plf at 2 rows of 16d
+  # sinkers at 12". The guide then names Simpson SDW by name as an alternative
+  # to those nails, which is the family scheduled below — and 24" o.c. is the
+  # SDW's own schedule, not a loosening of the nail one. A 0.220" structural
+  # screw is not a 16d nail and is not spaced like one.
+  # HDR IS THE SIDE-LOADED ONE: INNER-TRACK hangs into its face at P6, ~2,750 lb
+  # arriving as a POINT load, which is not what a plf table covers. Drive 2 extra
+  # screws per row within 6" each side of that hanger so the far ply picks up its
+  # share where the load actually lands. No field in this block expresses that,
+  # so it lives here and in the build log rather than in a count.
+  # CONNECTION DESIGN: the guide gives VERSA-LAM an equivalent specific gravity
+  # of G = 0.50 — exactly the threshold for Simpson's DF/SP column. So every SP
+  # hanger and base figure this job is checked against applies as printed on an
+  # LVL carrier, with no SPF reduction: HHUS410 into HDR keeps its 5,635 lb.
+  specs:
+    - for_thickness_in: 3.5     # 2 plies of 1-3/4" LVL
+      kind: engineered
+      part: SDW22338
+      desc: SDW EVOLUTION 0.220 x 3-3/8
+      per_box: 50
+      vendor: online          # SDW22338-R50, 50 per box, washer head
+      note: >
+        The multi-ply engineered-beam screw, driven from one face, no
+        through-bolts. 3-3/8" in a 3-1/2" pack leaves 1/8" — that is the
+        designed fit, not a shortfall. A 3" SDWS FRAMING screw is the wrong
+        family here: 0.160" shank against the SDW's 0.220", and it is tested
+        for stud-and-plate framing, not for laminating LVL.
+        SOURCING: no big-box store stocks it. Confirmed available online as
+        SDW22338-R50 (50 per box, washer head), which is where this one is
+        coming from — the yard will also have it if you would rather it came
+        with the LVL. Order it EARLY: it is the one part on the list with a
+        shipping wait instead of a shelf.
+        DO NOT substitute a 3-1/2" screw of any family into this pack. 3-1/2"
+        through 3-1/2" lands exactly at the far face and tips proud of it,
+        which is the same error as a 3" screw in a 3" sawn pack, just one
+        thickness up.
+    - for_thickness_in: 3.0     # 2 plies of 1-1/2" sawn
+      kind: sawn
+      part: SDWS FRAMING 0.160 x 2-1/2
+      desc: SDWS FRAMING 0.160 x 2-1/2
+      per_box: 50
+      note: >
+        2-1/2", not 3". A 3" screw through a 3" pack lands exactly at the far
+        face and tips proud of it; 2-1/2" still crosses the glue line with
+        1" of thread in the far ply.
+
+# The metal building the loft stands inside. Base rails sit on the slab edge
+# and the frame origin is their INSIDE face, so a post's real distance to the
+# concrete edge is rail + 2-3/4", not 2-3/4". The Footings detail draws from this.
+site:
+  slab_ft: [28, 35]                                     # outside-to-outside, E-W × N-S
+  rail_in: { west: 5, east: 5, north: 2.5, south: 2.5 } # twin-tube 5" on the side walls, single 2.5" front and back
+  origin: rail-inside                                   # x=0 / y=0 = inside face of the west / north rail
+
+# SUPPLY. Where the material comes from, and what will fit down the drive.
+# max_stock_ft caps EVERY section at once, so the cut list nests against what
+# can actually be delivered rather than the yard's full rack — one number to
+# change per job instead of a stock: block restating lengths section by section.
+# cap_except names what the cap must NOT touch: LVL is milled from 24' up in 2'
+# steps and comes on the yard's own truck, so capping it would make it
+# unbuyable rather than merely short.
+# vendors split the shopping list into runs — one trip for the dimensional PT,
+# sheet goods, concrete and hardware; the engineered lumber ordered separately.
+supply:
+  max_stock_ft: 12          # nothing over 12' on this job, delivered or not
+  cap_except: [LVL-11.875, 2x12]   # ordered to length from the yard. 2x12 is on this
+                            # list for ONE reason: the stair stringers. A 14-riser flight
+                            # off this deck is a 13'-10-1/4" blank, and NO legal rise/run
+                            # gets it under 12' — even 13 risers on a 9" run is 12'-7".
+                            # A cut stringer cannot be spliced, so the choice was a 16'
+                            # board or a mid-flight landing, and the board won.
+  vendors:
+    - id: bigbox
+      label: Lowe's
+      default: true         # everything not claimed below
+    - id: yard
+      label: Lumberyard
+      sections: [LVL-11.875]
+    - id: online
+      label: Online
+      # Nothing is routed here by category. Only a line that names it lands
+      # here, because "online" is not a kind of material — it is where one
+      # specific part turned out to be buyable.
+
+# STOCK, one section only. Nothing else on this job is 2x12 — the three stair
+# stringers are it — and the flight's blank is 13'-10-1/4". A 14' board leaves
+# 1-3/4" of that, which is not enough to square an end let alone absorb a
+# mis-cut on the third stringer. So this job buys 16' 2x12 and nests the
+# stringers out of it. Everything else still comes off the lumber file's rack.
+stock:
+  2x12: [16]
+
+
+# ── Drawing layers ────────────────────────────────────────────────────────────
+# The chips on the ISO, FRAMING PLAN and ORTHO tabs — declared here so the
+# drawing offers what THIS building is made of, not a fixed set. draws: lists
+# what lands on a layer: a KIND (slab, pads, posts, beams, joists, blocking,
+# decking, walls, roof) or a member ID (P6, HDR). An ID beats a kind, so one
+# member can be pulled onto its own layer; a member can also name its layer
+# directly with layer: <id>. hidden: true keeps a layer in the file but off
+# the chips and the drawing — for parts declared ahead of being built. With no
+# layers: block the tool falls back to FOUNDATION / FLOOR / DECK / WALLS / ROOF.
+layers:
+  - id: footings
+    label: FOOTINGS
+    hint: Pads under P6, P7 and P10, and the 12" band under the base rails
+    draws: [slab, pads]
+  - id: posts
+    label: POSTS
+    hint: The twelve posts, cut to length
+    draws: [posts]
+  - id: floor
+    label: FLOOR
+    hint: Beams, joists, blocking
+    draws: [beams, joists, blocking]
+  - id: deck
+    label: DECK
+    hint: Subfloor sheathing - switch off to see the joist layout under it
+    draws: [decking]
+  - id: stairs
+    label: STAIR
+    hint: Stringers, treads and the kicker at the foot of the flight
+    draws: [stairs]
+  - id: railings
+    label: RAILINGS
+    hint: Guard posts and rails - not modelled yet
+    hidden: true            # declared ahead of the members; drop this line when they exist
+    draws: [railings]
+
+phases:
+  - id: p1
+    name: North Platform
+  - id: p2
+    name: Catwalk
+  - id: p3
+    name: Stair
+
+# Origin is the OUTSIDE corner of the frame: the west face of WALL-TRACK /
+# RIM-W and the north face of BACK. Posts are 6x6 (5-1/2"), flush with those
+# faces, so their centres sit 2-3/4" in. Outside-to-outside: WALL-TRACK to
+# INNER-TRACK 10'-0", BACK to HDR 10'-0" — the joists then run 12' both ways.
+posts:
+  - id: P1
+    at: [6-1/4", 2-3/4"]    # MOVED IN 3-1/2" off the west rail (r26). The NW corner
+                            # had the west AND north rails against the post, and an
+                            # ABA66Z nails through flanges on OPPOSITE faces — no
+                            # rotation reaches both, so a corner that needs two
+                            # nailable faces had one. 3-1/2" — a 2x4 laid flat — is
+                            # hammer room. Still hard against BACK: only x moved.
+    size: 6x6
+    phase: p1
+    perimeter: true
+  - id: P2
+    at: [9'-2-1/2", 2-3/4"]    # 107-3/4" from P1 — a third of the BACK run
+    size: 6x6
+    phase: p1
+    perimeter: true
+  - id: P3
+    at: [18'-2-1/4", 2-3/4"]   # 107-3/4" from P2, 107-3/4" to P4
+    size: 6x6
+    phase: p1
+    perimeter: true
+  - id: P4
+    at: [26'-8-3/4", 2-3/4"] # MOVED IN 3-1/2" off the east rail (r26), the same
+                            # nailing cut as P1 — the NE corner carried the east and
+                            # north rails. East face now 26'-10-1/2", so there is
+                            # 3-1/2" of open slab to swing in. (r25 had it at
+                            # 27'-0-1/4", the 4x6's east face tight to the rail's
+                            # inside face at 27'-2".)
+    size: 4x6
+    facing: y               # 5-1/2" face runs along the east wall
+    phase: p1
+    perimeter: true
+  - id: P5
+    at: [2-3/4", 9'-9-1/4"]
+    size: 6x6
+    phase: p1
+    perimeter: true
+  - id: P6
+    at: [9'-9-1/4", 9'-9-1/4"]   # INNER-TRACK's outside face at 10'-0"
+    base: ABU66Z            # THE ONE HEAVY BASE. P6 carries 12,619 lb against the
+                            # ABA66Z's 11,415, so it is the only post the nailed base
+                            # cannot take. The bolted ABU66Z is 18,205 lb, 69% used,
+                            # and needs no grout either.
+    pad_in: 42              # HDR long-span reaction + INNER-TRACK: ~15,900 lb at 75 psf.
+    pad_depth_in: 12        # 40" is the minimum at 1,500 psf; 42" (12.25 sf, ~1,300 psf,
+                            # 87%) leaves margin on untested fill.
+    size: 6x6
+    phase: p1
+    perimeter: false
+  - id: P7
+    at: [23'-3-1/4", 9'-9-1/4"]
+    pad_in: 24              # ~4,700 lb at 75 psf: 22" minimum at 1,500 psf, 24" for margin.
+    pad_depth_in: 12
+    size: 6x6
+    phase: p1
+    perimeter: false
+  - id: P8
+    at: [27'-0-1/4", 9'-9-1/4"]   # tight to the east rail, same as P4 (r25)
+    size: 4x6
+    facing: y               # 5-1/2" face runs along the east wall
+    phase: p1
+    perimeter: true
+  - id: P9
+    at: [2-3/4", 18'-4"]
+    size: 6x6
+    phase: p2
+    perimeter: true
+  - id: P14
+    at: [2-3/4", 26'-8"]
+    size: 6x6
+    phase: p2
+    perimeter: true
+  - id: P10
+    at: [9'-9-1/4", 22'-6"]
+    pad_in: 28              # ~6,900 lb at 75 psf, INNER-TRACK interior post: 26" minimum
+    pad_depth_in: 12
+    size: 6x6
+    phase: p2
+    perimeter: false
+  - id: P11
+    at: [2-3/4", 34'-0-3/4"]  # MOVED IN 3-1/2" off the SOUTH rail (r27) and kept tight
+                              # on the west wall, so the SW corner is no longer a
+                              # corner: one blocked face instead of two, which a
+                              # standoff base answers by rotating 90° to nail through
+                              # the open north and south faces. This was the last
+                              # base-access WARN in the model. x is unchanged.
+                              # (r25 had it at 34'-4-1/4", south face tight to the
+                              # rail's inside face at 34'-7".)
+    size: 6x6
+    phase: p2
+    perimeter: true
+  - id: P12
+    at: [9'-9-1/4", 34'-4-1/4"]   # tight to the south rail, same as P11 (r25)
+    size: 6x6
+    phase: p2
+    perimeter: true
+
+beams:
+  # side: the post face each beam is flush with. Everything on the perimeter
+  # sits in the OUTSIDE pocket; unset members stay centred on their posts.
+  - id: BACK
+    label: Back beam
+    axis: x
+    side: north
+    # r24: P13 deleted to drop a 6x6, and P2 and P3 moved to the thirds of the
+    # run. r26 slid the two END posts inboard for base nailing (see P1 and P4),
+    # so the four are no longer at equal thirds:
+    #   P1 6-1/4" · P2 9'-2-1/2" · P3 18'-2-1/4" · P4 26'-8-3/4"
+    #   spans 8'-8-1/4" · 8'-11-3/4" · 8'-6-1/2"
+    # NO CHECK MOVES. The middle span is untouched at 8'-11-3/4" and it was
+    # already the worst of the three, so bending, deflection and stock length
+    # still read off it. Both end spans got SHORTER, which only helps, and the
+    # 5-1/4" difference between them is ~2% of a reaction — P2 and P3 stay
+    # near-identical instead of the r23 2,680 / 2,020 lb split.
+    #   2-ply 2x10 at 277 plf, 8'-11-3/4": 78% bending, 0.15" — L/737
+    #   (was 58% and L/1147 over 7'-9", so the stiffness is still 1.5x the
+    #    L/480 comfort line and over 2x the L/360 minimum)
+    # THE BEAM DID NOT MOVE WITH THE POSTS. It still runs the full inside width
+    # of the building, wall face to wall face, declared below as from_ft/to_ft,
+    # so it now overhangs P1 by 6-1/4" and P4 by 5-1/4" instead of dying on
+    # their outer faces. That is not decoration: RIM-W's LUS210 hangs off BACK
+    # at x = 2-3/4" and the landing's east rim joist hangs off it at 27'-0-1/4",
+    # and both of those are now OUTBOARD of an end post. CUT LENGTHS DO NOT
+    # CHANGE — the sticks still run 9'-2-1/2" · 8'-11-3/4" · 8'-11-3/4" between
+    # the same two wall faces; what was 3-1/2" of post at each end is now 3-1/2"
+    # of cantilever. All four posts still bear on the 12" slab perimeter band.
+    supports: [P1, P2, P3, P4]
+    from_ft: 0              # WOOD extents, wall to wall: the west rail's inside
+    to_ft: 27'-2"           # face to the east rail's. Spans stay centre to centre.
+    plies: 2
+    section: 2x10
+    trib_ft: 4.5            # hung end of a 9'-6-1/2" back-span with a 2' cantilever past HDR:
+                            # R = w(L² − a²)/2L → 4.56' of the joist run lands here, not 5'
+    phase: p1
+  - id: HDR
+    label: LVL header (drop beam)
+    axis: x
+    side: south
+    supports: [P5, P6, P7]
+    plies: 2
+    section: LVL-11.875
+    top_ft: 8'-0"           # LVL top; the 2x10 joists ride over it
+    trib_ft: 7              # drop bearing with the cantilever: R = w(L + a)²/2L over L = 9'-6-1/2",
+                            # a = 2' → 6.98' of joist run. The cantilever ADDS load here.
+    phase: p1
+    # DEFLECTION, P6–P7 span (13'-6" c-c, ~420 plf at 50 live + 10 dead).
+    # NO SISTER PLY. Moving P6 from 7'-9-1/4" to 9'-9-1/4" took 2' out of this
+    # span, and deflection falls with L⁴ — to ~58% of the old 15'-6" figures:
+    #   2-ply LVL alone ... ~0.32"  L/513   passes L/480 on its own
+    # (0.33" / L/490 was the 2.0E placeholder this was written against. The
+    #  delivered stock is Boise VERSA-LAM 2.1E 3100: 5% more E takes 5% off the
+    #  deflection, and the corrected LVL self weight puts ~1% back.)
+    # The third ply was insurance against a span that no longer exists. Taking
+    # it off also takes the flat tops off P6 and P7: the pair is 3-1/2" of a
+    # 5-1/2" post, so both posts now get the same pocket as P5 (r24).
+    # DECISION: 2 plies, no sister. One 14' LVL off the order, two AC6 caps
+    # off the hardware list, and the whole header is one repeated detail.
+    # If storage load ever makes it bounce, the remediation below adds a
+    # sister WITHOUT touching a post — it stiffens by deflecting with the
+    # pair, it never needed to reach the wood.
+    # REMEDIATION for bounce beyond that (no post work — a sister shares load by
+    # deflecting with the LVLs, it does not need to bear on P6/P7):
+    #   1. Keep HDR's SOUTH face clear P6–P7: no hangers, blocking or wiring.
+    #   2. Fasten the two LVL plies to each other per the multi-ply schedule now.
+    #   3. Later: one 16' 2x12 (SP #2 minimum, straight; DF #2 or an LVL ply if
+    #      you want margin), top FLUSH with the LVL top so the joists bear on it
+    #      too (its bottom sits 5/8" high — fine). Ends stop at the post faces.
+    #   4. Jack the span back to straight before fastening or the sister only
+    #      removes bounce from NEW load, not the dead-load set already there.
+    #   5. Two rows of 16d or 1/4" structural screws at 12" o.c., staggered.
+    # NO DEFLECTION WAIVER. It was written for the 15'-6" span the third ply
+    # was insurance against. At 13'-6" the pair passes on its own, so the
+    # sheet states L/513 instead of hiding the check — and if a later edit
+    # lengthens this span, the finding comes back on its own.
+  - id: RIM-W
+    label: West rim
+    axis: y
+    side: west
+    # P1 slid 3-1/2" EAST in r26 and P5 did not, so the two no longer share a
+    # line and P1 cannot set this rim's x any more. The DECK EDGE sets it:
+    # NORTH-W's west joist is at 2-3/4" and this rim is the west face of that
+    # field, so the line is declared here rather than derived from a post. The
+    # joints are unchanged — the north end hangs off BACK in a LUS210 (now in
+    # BACK's west overhang, 3-1/2" west of P1's centre, nailed to the beam face
+    # as it always was) and the south end bears on HDR at P5.
+    at_ft: 2-3/4"
+    from_ft: 2-3/4"
+    to_ft: 9'-9-1/4"
+    supports: [P5]
+    plies: 1
+    section: 2x10
+    trib_ft: 0
+    phase: p1
+  # On the P7–P8 line. The landing joists run y, BACK to here, and butt into
+  # it in hangers — it carries half the landing. At P7 its bottom (8'-0")
+  # lands on HDR's top; at P8 it pockets into the 4x6's north face, the same
+  # cut as BACK into P4. The landing's outer joists are its rims — no EDGE-S
+  # or EDGE-E beams.
+  # HDR-E continues HDR east from P7 to P8 — same 2-ply LVL, same 8'-0" top,
+  # same south-face side — so the landing joists ride over it like the
+  # platform joists ride over HDR, and STAIR-HDR has something to sit on.
+  - id: HDR-E
+    label: LVL header, east (drop beam)
+    axis: x
+    side: south
+    supports: [P7, P8]
+    plies: 2
+    section: LVL-11.875
+    top_ft: 8'-0"
+    trib_ft: 4.5            # half the landing span (BACK to HDR-E)
+    phase: p1
+    waive: [low-util]
+  # STAIR-HDR is the landing's south RIM, sitting on HDR-E's top with its own
+  # top at deck level. It runs from P8 west OVER P7 to the first platform joist
+  # (NORTH-E's last, at x = 22'-5-1/4") and end-nails to it — there is no joist
+  # on the P7 line. It carries no joist load; the joists bear on HDR-E.
+  - id: STAIR-HDR
+    label: Stairwell rim (over HDR-E)
+    axis: x
+    at_ft: 9'-10-1/2"       # 3" wide: faces at 9'-9" and 10'-0", flush with HDR-E's south face
+    from_ft: 22'-5-1/4"
+    to_ft: 27'-0-1/4"       # P8's centre line, moved in with the post (r25)
+    plies: 2
+    section: 2x10
+    trib_ft: 0
+    top_ft: 8'-9-1/4"
+    phase: p1
+    waive: [low-util, unused]
+  - id: WALL-TRACK
+    label: Catwalk wall track
+    axis: y
+    side: west
+    # P11 came 3-1/2" north in r27 and the track did NOT follow it, the same way
+    # BACK did not follow P1 and P4: the run is declared wall to wall, 9'-9-1/4"
+    # (P5's centre, where its north end sits on HDR) to 34'-7" (the south rail's
+    # inside face), so it now overhangs P11 by 6-1/4" rather than dying 3/4"
+    # short of the deck. CATWALK's south bound and RIM-E2 are unchanged and the
+    # catwalk keeps its length; the overhang carries the last joist's hung end,
+    # which is what the 3/4" would otherwise have left in air. CUT LENGTHS DO
+    # NOT CHANGE: the last stick is still 7'-11" (7'-4-3/4" of span plus the
+    # 6-1/4" overhang, where r26 had 7'-8-1/4" plus 2-3/4" of post).
+    supports: [P5, P9, P14, P11]
+    from_ft: 9'-9-1/4"      # WOOD extents. P5's centre to the south rail's inside
+    to_ft: 34'-7"           # face. Spans stay centre to centre.
+    plies: 2
+    section: 2x10
+    trib_ft: 4.5            # hung end, L = 9'-6-1/2", a = 2': w(L² − a²)/2L = 4.56'
+    phase: p2
+  - id: INNER-TRACK
+    label: Catwalk inner track (drop beam)
+    axis: y
+    side: east
+    supports: [P6, P10, P12]
+    plies: 2
+    section: LVL-11.875
+    top_ft: 8'-0"           # same as HDR; the two LVL tops stay level at P6
+    trib_ft: 5.8            # drop bearing with the 22" cantilever: w(L + a)²/2L = 5.83'
+    phase: p2
+    waive: [low-util]
+  # Cantilever rim: the NORTH-E joists overhang HDR by 2'-0" and this rim nails
+  # to their ends at joist level. No posts, no hangers.
+  # Catwalk cantilever rim: nails to the joist ends at x = 12'-0", joist level.
+  # Two sticks, butt joint on the joist at y = 24', both from 12' stock.
+  - id: RIM-E1
+    label: Catwalk east rim, north
+    axis: y
+    at_ft: 12'-0-3/4"      # inner face on the joist ends at 12'-0"
+    from_ft: 12
+    to_ft: 24
+    plies: 1
+    section: 2x10
+    trib_ft: 0
+    top_ft: 8'-9-1/4"
+    phase: p2
+    waive: [low-util, unused]
+  - id: RIM-E2
+    label: Catwalk east rim, south
+    axis: y
+    at_ft: 12'-0-3/4"
+    from_ft: 24
+    to_ft: 34'-4-1/4"       # P11/P12 line (r25)
+    plies: 1
+    section: 2x10
+    trib_ft: 0
+    top_ft: 8'-9-1/4"
+    phase: p2
+    waive: [low-util, unused]
+  # Two sticks, butt joint on the joist at x = 16', so both cut from 10' stock.
+  # From x = 0 to 10 the first catwalk joist (y = 12') closes the edge instead.
+  - id: RIM-S1
+    label: South cantilever rim, west
+    axis: x
+    at_ft: 12'-0-3/4"     # inner face on the joist ends at 12'-0"
+    from_ft: 10
+    to_ft: 16
+    plies: 1
+    section: 2x10
+    trib_ft: 0
+    top_ft: 8'-9-1/4"
+    phase: p1
+    waive: [low-util, unused]
+  - id: RIM-S2
+    label: South cantilever rim, east
+    axis: x
+    at_ft: 12'-0-3/4"
+    from_ft: 16
+    to_ft: 23'-3-1/4"
+    plies: 1
+    section: 2x10
+    trib_ft: 0
+    top_ft: 8'-9-1/4"
+    phase: p1
+    waive: [low-util, unused]
+
+joist_fields:
+  # Every joist on the job cantilevers 2'-0" past its drop beam. The platform
+  # hangs at BACK (kept at deck level, against the wall), runs OVER the dropped
+  # HDR and carries on to y = 12' — 12' stock. It is split at the catwalk line
+  # only so the two fields can be checked and counted separately. The catwalk
+  # joists start at y = 12', where the platform's cantilever ends, hang at
+  # WALL-TRACK and run over INNER-TRACK to x = 10' — 10' stock.
+  - id: NORTH-W
+    label: North platform, west
+    section: 2x10
+    span_axis: y
+    bounds_x: [2-3/4", 7'-9-1/4"]   # field split, not a post line since r24 (P2 moved east); owns the joist on it
+    bounds_y: [2-3/4", 9'-9-1/4"]
+    joists_from: high       # lay out from the split joist so the odd bay lands at RIM-W
+    framing: drop
+    hung_at: [BACK]         # hangers at BACK only; ties over HDR
+    cantilever_ft: { HDR: 2 }
+    spacing_in: 16
+    hanger: LUS210
+    bears_on: [BACK, HDR]
+    blocking: true
+    phase: p1
+  - id: NORTH-E
+    label: North platform, cantilevered
+    section: 2x10
+    span_axis: y
+    bounds_x: [7'-9-1/4", 23'-3-1/4"]
+    bounds_y: [2-3/4", 9'-9-1/4"]
+    shared_first_joist: true    # the x = 8' joist is NORTH-W's; this field blocks and decks up to it
+    framing: drop
+    hung_at: [BACK]
+    cantilever_ft: { HDR: 2 }   # 24" past HDR's south face: ends at 12'-0", cuts 11'-9"
+    spacing_in: 16
+    hanger: LUS210
+    bears_on: [BACK, HDR]
+    blocking: true
+    phase: p1
+  - id: LANDING
+    label: Stair landing
+    section: 2x10
+    span_axis: y
+    bounds_x: [23'-3-1/4", 27'-0-1/4"]   # to P8's centre line (r25)
+    bounds_y: [1-1/2", 9'-9-1/4"]   # BACK's line (north pocket, centred 1-1/2") to the P7–P8 line
+    end_at_ft: { HDR-E: 9'-9" }      # joists stop on HDR-E at STAIR-HDR's north face, not HDR-E's far face
+    framing: drop           # hung at BACK, ride over HDR-E; the east joist is the rim
+    hung_at: [BACK]
+    skip_first_joist: true           # no joist on the P7 line; STAIR-HDR ties to NORTH-E's last joist
+    layout_origin: 7'-9-1/4"         # continue the platform's 16" rhythm from the field split
+    spacing_in: 16
+    hanger: LUS210
+    bears_on: [BACK, HDR-E]
+    blocking: true
+    phase: p1
+  - id: CATWALK
+    label: Catwalk
+    section: 2x10            # was 2x8; INNER-TRACK drops a full 2x10 so the deck stays level
+    span_axis: x
+    bounds_x: [2-3/4", 9'-9-1/4"]
+    bounds_y: [12, 34'-4-1/4"]   # y 10–12 is the platform's cantilever; ends on the P11/P12 line (r25)
+    framing: drop
+    hung_at: [WALL-TRACK]   # hangers at the wall track; ties over INNER-TRACK
+    cantilever_ft: { INNER-TRACK: 2 }        # back-span 9'-6-1/2" ÷ 4 = 28-5/8" max; 24" is well inside.
+                                             # Ends at x = 12'-0", cuts 11'-9" — same as the platform.
+    spacing_in: 16
+    hanger: LUS210
+    bears_on: [WALL-TRACK, INNER-TRACK]
+    blocking: true
+    phase: p2
+
+# ── Stairs ────────────────────────────────────────────────────────────────────
+# One straight flight, deck to slab, hung off the stairwell's south rim and
+# running SOUTH into the open bay. THREE declared numbers carry it — risers,
+# run per step, width — read against two the model already holds: the deck
+# height in project.deck_top_ft, and the FACE of the member it hangs off, taken
+# from that member's own run rather than typed again here. Riser height, tread
+# count, footprint, stringer blank, throat, every code check and every cut fall
+# out of those. Change risers: or run_in: and the saw, the drawings and the
+# checks move together; there is no second place to edit.
+stairs:
+  - id: STAIR
+    label: Main stair
+    phase: p3
+    from: STAIR-HDR         # the flight hangs here; this member's face is the head
+    face: south             # the side of it the flight descends on
+    at_ft: 23'-3-1/4"       # WEST face of the west stringer — the landing's own west
+                            # bound, so the flight sits square under the deck it leaves
+    width_in: 39            # OUTSIDE to outside; 36" clear to walk between the stringers
+    stringers: 3
+    risers: 14              # 105-1/4" of rise ÷ 14 = 7.518" a step, under the 7-3/4" limit.
+                            # NOT rounded: round the riser and fourteen steps land
+                            # somewhere other than the slab.
+    run_in: 10              # nosing to nosing. 13 treads = 10'-10" of floor
+    stringer_section: 2x12
+    tread_section: 2x6
+    treads_per_step: 2      # two 2x6 = 11" of board over a 10" run: a 1" nosing
+    open_risers: true       # SHOP STAIR, and the one thing on this flight that is not
+                            # code — a 7.518" gap passes a 4" sphere. Thirteen 1x8 riser
+                            # boards close it the day this becomes living space.
+    top: hung
+    top_part: LSCZ          # adjustable stringer connector, one per stringer
+    bottom: kicker
+    kicker_section: 2x4     # PT, flat on the slab SOUTH of the bottom riser — the thrust
+                            # at the foot runs away from the header, so the kicker has to
+                            # be on that side to resist it
+    kicker_angle: A35
+    kicker_anchor: Titen HD 1/2 x 4-1/2
+    kicker_anchors: 4
+    tread_screw: SDWS FRAMING 0.160 x 3
+    code:
+      max_rise_in: 7.75
+      min_run_in: 10
+      min_width_in: 36
+      min_headroom_in: 80
+      max_riser_gap_in: 4   # open risers must not pass a sphere this size
+
+openings:
+  - id: STAIRWELL
+    label: Stairwell
+    clear_width_in: 39
+    min_width_in: 36
+
+connections:
+  - at: P1
+    member: BACK
+    type: notch
+  - at: P2
+    member: BACK
+    type: notch
+  - at: P3
+    member: BACK
+    type: notch
+    face: north
+  # P4 is a 4x6 stood long-ways along the east wall: 5-1/2" in y, so BACK
+  # pockets 3" into its north face and leaves a 2-1/2" lip, same as P3.
+  - at: P4
+    member: BACK
+    type: notch
+    face: north
+  - at: P5
+    member: HDR
+    type: notch
+  # P6 AND P7 ARE NOTCHED as of r24 — with the sister ply gone the pair is
+  # 3-1/2" of a 5-1/2" post, so every post under this header takes the same
+  # 3-1/2" x 11-7/8" pocket, 2" lip, 8'-0" cut, 7'-0-1/8" shoulder as P5. One
+  # detail, three posts, no post caps.
+  # Bearing is not the constraint: the pair puts its share of P6's reaction on
+  # 3-1/2" x 5-1/2" = 19-1/4 sq in of shoulder and the wood that crushes is
+  # the LVL's, good for 750 psi across the grain. The old flat top's 30 sq in
+  # was margin we were paying a cap and a special cut for.
+  # Boise's own table agrees (MTP-E7000 p.28): an 11-7/8" beam of the 1-3/4"
+  # family at a 13' span wants 2.4" of bearing at an end support and 5.9" at an
+  # intermediate one — but those are AT THE TABULATED LOAD, 940 plf for a 2-ply.
+  # HDR runs 433 plf, so the real requirement scales to roughly 1.1" and 2.7".
+  # P7's 2-3/4" seats clear the table's end figure outright, at any load it will
+  # ever see; P6's 5-1/2" shoulder is a shade under the table's 5.9" and better
+  # than twice what this beam actually asks for.
+  # P7 IS THE ONE THAT NEEDS READING: HDR dies there and HDR-E starts there,
+  # two collinear LVL ends flush with the same face at the same top. It is ONE
+  # cut — 3-1/2" off the south side, full length of the post, down to
+  # 7'-0-1/8" — with the butt joint landing over the post centre, so it is
+  # written as two 2-3/4" seats that meet. Each end gets 9-1/2 sq in of
+  # shoulder (~370 psi, half of allowable), the 2" x 5-1/2" north lip stays
+  # standing as the nub to bolt both ends through, and a strap across the top
+  # face ties the joint. Bolt before the joists go on — that lip is the only
+  # thing holding the two ends in line.
+  - at: P6
+    member: HDR
+    type: notch
+  - at: P7
+    member: HDR
+    type: notch
+    seat_in: 2.75            # INCHES — half the post's 5-1/2" length, so the
+                             # two ends meet over the centre in one 3-1/2" cut
+    align: south
+  - at: P9
+    member: WALL-TRACK
+    type: notch
+  - at: P14
+    member: WALL-TRACK
+    type: notch
+  - at: P11
+    member: WALL-TRACK
+    type: notch
+  - at: P10
+    member: INNER-TRACK
+    type: notch
+  - at: P12
+    member: INNER-TRACK
+    type: notch
+  # P1 names the BAY here, not the position: since r26 this hanger sits in
+  # BACK's west overhang at x = 2-3/4", 3-1/2" west of P1's centre. It has
+  # always nailed to BACK's face and not to the post, so the joint is the same.
+  - at: P1
+    member: RIM-W
+    type: hung
+    into: BACK
+    part: LUS210
+  # HDR now tops out 9-1/4" below RIM-W's top, so RIM-W's bottom lands ON
+  # HDR at P5 — it bears on the drop beam and nails to the post face. No
+  # pocket: WALL-TRACK already owns the notch at that elevation.
+  - at: P5
+    member: RIM-W
+    type: bears
+    on: HDR
+  # Three-span continuous track. At P5 it does not pocket: HDR runs through
+  # P5's south notch to the post's west face, and WALL-TRACK's north end sits
+  # ON the LVL top (8'-0"), same as RIM-W beside it. P5 is notched for HDR
+  # only, so it cuts at 8'-0" from 8' stock.
+  - at: P5
+    member: WALL-TRACK
+    type: bears
+    on: HDR
+  # Both LVLs are drop beams at the same top, so INNER-TRACK hangs into HDR
+  # with tops flush. At 75 psf the reaction is ~2,750 lb — past the HUS412's
+  # 2,720 — so this steps up to the HHUS410 (5,635 lb, 40 nails).
+  - at: P6
+    member: INNER-TRACK
+    type: girder-hung
+    into: HDR
+    part: HHUS410
+  # HDR-E: at P7 it takes the east half of the same pocket HDR's east end sits
+  # in — butt joint over the post centre, strap across, both ends bolted to
+  # the north lip. At P8 it pockets 3-1/2" into the 4x6's north face, leaving
+  # a 2" lip; cut the post at 8'-0", like P5, P6 and P7.
+  - at: P7
+    member: HDR-E
+    type: notch
+    seat_in: 2.75            # INCHES — half the post's 5-1/2" length, so the
+                             # two ends meet over the centre in one 3-1/2" cut
+    align: south
+  - at: P8
+    member: HDR-E
+    type: notch
+    face: north
+  # STAIR-HDR is a rim on HDR-E's top at both ends — no pocket, no hanger.
+  - at: P7
+    member: STAIR-HDR
+    type: bears
+    on: HDR-E
+  - at: P8
+    member: STAIR-HDR
+    type: bears
+    on: HDR-E

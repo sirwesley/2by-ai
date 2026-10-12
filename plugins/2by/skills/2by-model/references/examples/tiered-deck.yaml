@@ -1,0 +1,441 @@
+# Three-tier back deck — 32'-0" × 24'-0" overall, freestanding.
+#
+# Demonstrates SHARED POSTS between tiers: a post on a tier line carries
+# the upper tier's beam near its top and the lower tier's beam partway
+# down, so one 6x6 serves two levels. Look at P6, P12, P13 and P16 in
+# the ISO — they run past one deck to reach the next.
+#
+# Tier 2 bears at 1'-5-3/4" and not a round 1'-8": its beam shares the y=10
+# posts with T1-S, and at 1'-8" the two would have overlapped in elevation by
+# 2-1/4". Two 3" beams cannot occupy the same wood in a 5-1/2" post. Dropped
+# to 1'-5-3/4", T2-N's top lands exactly on T1-S's underside and P6, P7, P8
+# and P11 carry two pockets stacked in one face. The step it costs is real
+# and the FINDINGS panel prices it in risers.
+#
+# Elevations here are INPUTS ONLY — bottom-of-beam (bearing_ft) per tier:
+#   Tier 1  bearing 2'-3"   (at the house)
+#   Tier 2  bearing 1'-5-3/4"
+#   Tier 3  bearing 0'-4"
+#
+# Tiers 1 and 2 are FLUSH framed (joists hung between the beams in
+# hangers). Tier 3 is DROP framed (joists run over the top of its beams),
+# so its deck sits a full joist depth above its beam tops and it takes
+# hurricane ties instead of hangers — and its rims sit at joist level
+# (top_ft), nailed to the joist ends rather than hung between the beams.
+#
+# Deck tops, post cut lengths and the step between tiers are all DERIVED
+# from those bearings plus each member's section depth. Read them off the
+# TAKEOFF and FINDINGS panels — never from a comment. Restating a derived
+# number in prose is how a model and its output drift apart.
+
+project:
+  slug: tiered-deck
+  title: Three-Tier Back Deck
+  revision: r3
+  date: 2026-09-02
+  live_psf: 40
+  dead_psf: 10
+  allowable_psf: 1500
+  waste_pct: 10
+  bearing_ft: 2'-3"
+
+# No slab under a deck — every post gets its own pier, so all posts are
+# marked perimeter: false and the foundation panel calls them all out.
+slab:
+  field_in: 0
+  perimeter_in: 0
+  perimeter_width_in: 0
+
+phases:
+  - id: p1
+    name: Upper + Middle Tier
+  - id: p2
+    name: Lower Tier
+
+# STOCK OVERRIDE, kept deliberately. Lengths normally live in the LUMBER file
+# and every model reads them from there. This job is buying from a yard with a
+# thinner rack — 2x8 in 8 and 12 only, 6x6 in 12 only — so it states its own
+# and the tool reports each override in the Findings. It is also what makes
+# this model's cut list interesting: a constrained rack is where nesting and
+# offcut actually cost money.
+stock:
+  2x8: [8, 12]
+  2x10: [10, 12, 16]
+  6x6: [12]
+
+posts:
+  # --- house side, y = 0 (tier 1 north beam)
+  - id: P1
+    at: [0, 0]
+    size: 6x6
+    phase: p1
+    perimeter: false
+  - id: P2
+    at: [8, 0]
+    size: 6x6
+    phase: p1
+    perimeter: false
+  - id: P3
+    at: [16, 0]
+    size: 6x6
+    phase: p1
+    perimeter: false
+  - id: P4
+    at: [24, 0]
+    size: 6x6
+    phase: p1
+    perimeter: false
+  - id: P5
+    at: [32, 0]
+    size: 6x6
+    phase: p1
+    perimeter: false
+
+  # --- tier 1 / tier 2 line, y = 10'-0"  (SHARED POSTS, two elevations)
+  - id: P6
+    at: [0, 10]
+    size: 6x6
+    phase: p1
+    perimeter: false
+  - id: P7
+    at: [8, 10]
+    size: 6x6
+    phase: p1
+    perimeter: false
+  - id: P8
+    at: [16, 10]
+    size: 6x6
+    phase: p1
+    perimeter: false
+  - id: P9
+    at: [24, 10]
+    size: 6x6
+    phase: p1
+    perimeter: false
+  - id: P10
+    at: [32, 10]
+    size: 6x6
+    phase: p1
+    perimeter: false
+  - id: P11
+    at: [20, 10]
+    size: 6x6
+    phase: p1
+    perimeter: false
+
+  # --- tier 2 / tier 3 line, y = 18'-0"  (SHARED POSTS, two elevations)
+  - id: P12
+    at: [0, 18]
+    size: 6x6
+    phase: p1
+    perimeter: false
+  - id: P16
+    at: [6, 18]
+    size: 6x6
+    phase: p1
+    perimeter: false
+  - id: P13
+    at: [12, 18]
+    size: 6x6
+    phase: p1
+    perimeter: false
+  - id: P14
+    at: [20, 18]
+    size: 6x6
+    phase: p1
+    perimeter: false
+
+  # --- lower tier outer edge, y = 24'-0"
+  - id: P17
+    at: [0, 24]
+    size: 6x6
+    phase: p2
+    perimeter: false
+  - id: P18
+    at: [6, 24]
+    size: 6x6
+    phase: p2
+    perimeter: false
+  - id: P19
+    at: [12, 24]
+    size: 6x6
+    phase: p2
+    perimeter: false
+
+beams:
+  # ---------------- TIER 1 · bearing 2'-3" ----------------
+  - id: T1-N
+    label: Tier 1 house beam
+    axis: x
+    supports: [P1, P2, P3, P4, P5]
+    plies: 2
+    section: 2x10
+    trib_ft: 5
+    bearing_ft: 2'-3"
+    phase: p1
+  - id: T1-S
+    label: Tier 1 outer beam
+    axis: x
+    supports: [P6, P7, P8, P11, P9, P10]
+    plies: 2
+    section: 2x10
+    trib_ft: 5
+    bearing_ft: 2'-3"
+    phase: p1
+  - id: T1-RW
+    label: Tier 1 west rim
+    axis: y
+    supports: [P1, P6]
+    plies: 1
+    section: 2x10
+    trib_ft: 0
+    bearing_ft: 2'-3"
+    phase: p1
+  - id: T1-RE
+    label: Tier 1 east rim
+    axis: y
+    supports: [P5, P10]
+    plies: 1
+    section: 2x10
+    trib_ft: 0
+    bearing_ft: 2'-3"
+    phase: p1
+
+  # ---------------- TIER 2 · bearing 1'-8" ----------------
+  - id: T2-N
+    label: Tier 2 upper beam
+    axis: x
+    supports: [P6, P7, P8, P11]
+    plies: 2
+    section: 2x10
+    trib_ft: 4
+    bearing_ft: 1'-5-3/4"
+    phase: p1
+  - id: T2-S
+    label: Tier 2 outer beam
+    axis: x
+    supports: [P12, P16, P13, P14]
+    plies: 2
+    section: 2x10
+    trib_ft: 4
+    bearing_ft: 1'-5-3/4"
+    phase: p1
+  - id: T2-RW
+    label: Tier 2 west rim
+    axis: y
+    supports: [P6, P12]
+    plies: 1
+    section: 2x10
+    trib_ft: 0
+    bearing_ft: 1'-5-3/4"
+    phase: p1
+  - id: T2-RE
+    label: Tier 2 east rim
+    axis: y
+    supports: [P11, P14]
+    plies: 1
+    section: 2x10
+    trib_ft: 0
+    bearing_ft: 1'-5-3/4"
+    phase: p1
+
+  # ---------------- TIER 3 · bearing 0'-4" ----------------
+  - id: T3-N
+    label: Tier 3 upper beam
+    axis: x
+    supports: [P12, P16, P13]
+    plies: 2
+    section: 2x8
+    trib_ft: 3
+    bearing_ft: 0'-4"
+    phase: p2
+  - id: T3-S
+    label: Tier 3 outer beam
+    axis: x
+    supports: [P17, P18, P19]
+    plies: 2
+    section: 2x8
+    trib_ft: 3
+    bearing_ft: 0'-4"
+    phase: p2
+  - id: T3-RW
+    label: Tier 3 west rim
+    axis: y
+    supports: [P12, P17]
+    plies: 1
+    section: 2x8
+    trib_ft: 0
+    top_ft: 1'-6-1/2"      # joist level, not beam level — T3 is drop framed
+    phase: p2
+  - id: T3-RE
+    label: Tier 3 east rim
+    axis: y
+    supports: [P13, P19]
+    plies: 1
+    section: 2x8
+    trib_ft: 0
+    top_ft: 1'-6-1/2"      # joist level, not beam level — T3 is drop framed
+    phase: p2
+
+joist_fields:
+  - id: T1
+    label: Tier 1
+    section: 2x10
+    span_axis: y
+    bounds_x: [0, 32]
+    bounds_y: [0, 10]
+    framing: flush
+    spacing_in: 16
+    bears_on: [T1-N, T1-S]
+    blocking: true
+    phase: p1
+  - id: T2
+    label: Tier 2
+    section: 2x10
+    span_axis: y
+    bounds_x: [0, 20]
+    bounds_y: [10, 18]
+    framing: flush
+    spacing_in: 16
+    bears_on: [T2-N, T2-S]
+    blocking: true
+    phase: p1
+  - id: T3
+    label: Tier 3
+    section: 2x8
+    span_axis: y
+    bounds_x: [0, 12]
+    bounds_y: [18, 24]
+    framing: drop           # joists run OVER these beams — deck sits a joist depth higher
+    spacing_in: 16
+    bears_on: [T3-N, T3-S]
+    blocking: true
+    phase: p2
+
+connections:
+  # ---- tier 1 notched bearings
+  - at: P1
+    member: T1-N
+    type: notch
+  - at: P2
+    member: T1-N
+    type: notch
+  - at: P3
+    member: T1-N
+    type: notch
+  - at: P4
+    member: T1-N
+    type: notch
+  - at: P5
+    member: T1-N
+    type: notch
+  - at: P6
+    member: T1-S
+    type: notch
+  - at: P7
+    member: T1-S
+    type: notch
+  - at: P8
+    member: T1-S
+    type: notch
+  - at: P11
+    member: T1-S
+    type: notch
+  - at: P9
+    member: T1-S
+    type: notch
+  - at: P10
+    member: T1-S
+    type: notch
+
+  # ---- tier 2 notched bearings (lower notch, same posts at y=10)
+  - at: P12
+    member: T2-S
+    type: notch
+  - at: P16
+    member: T2-S
+    type: notch
+  - at: P13
+    member: T2-S
+    type: notch
+  - at: P14
+    member: T2-S
+    type: notch
+
+  # ---- tier 2 upper beam, stacked under T1-S on the same posts
+  - at: P6
+    member: T2-N
+    type: notch
+  - at: P7
+    member: T2-N
+    type: notch
+  - at: P8
+    member: T2-N
+    type: notch
+  - at: P11
+    member: T2-N
+    type: notch
+
+  # ---- tier 3 notched bearings (lower notch, same posts at y=18)
+  - at: P12
+    member: T3-N
+    type: notch
+  - at: P16
+    member: T3-N
+    type: notch
+  - at: P13
+    member: T3-N
+    type: notch
+  - at: P17
+    member: T3-S
+    type: notch
+  - at: P18
+    member: T3-S
+    type: notch
+  - at: P19
+    member: T3-S
+    type: notch
+
+  # ---- rims hung, never notched, so no post is ever cross-notched
+  - at: P1
+    member: T1-RW
+    type: hung
+    into: T1-N
+    part: LU210
+  - at: P6
+    member: T1-RW
+    type: hung
+    into: T1-S
+    part: LU210
+  - at: P5
+    member: T1-RE
+    type: hung
+    into: T1-N
+    part: LU210
+  - at: P10
+    member: T1-RE
+    type: hung
+    into: T1-S
+    part: LU210
+  - at: P6
+    member: T2-RW
+    type: hung
+    into: T2-N
+    part: LU210
+  - at: P12
+    member: T2-RW
+    type: hung
+    into: T2-S
+    part: LU210
+  - at: P11
+    member: T2-RE
+    type: hung
+    into: T2-N
+    part: LU210
+  - at: P14
+    member: T2-RE
+    type: hung
+    into: T2-S
+    part: LU210
+  # T3's rims are drop-framed: they nail to the joist ENDS at joist level,
+  # so they take no hanger. Only the flush tiers above use LU210/LU28.

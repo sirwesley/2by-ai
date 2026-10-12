@@ -1,0 +1,82 @@
+# A freestanding 8' x 8' deck on four posts. Example only: every load
+# below must come from YOUR building department, not from this file.
+project:
+  slug: small-deck
+  title: Small Deck 8x8
+  revision: r1
+  date: 2026-10-12
+  format: 1
+  live_psf: 40            # example value: ask your building department
+  dead_psf: 10            # example value: framing and decking
+  allowable_psf: 1500     # example value: soil bearing, from your local code
+  deck_top_ft: 2'-6"      # top of the joists above grade
+
+phases:
+  - id: p1
+    name: Deck
+
+# x runs east, y runs south, both in feet from the north-west corner.
+posts:
+  - id: P1
+    at: [0, 0]
+    size: 6x6
+    phase: p1
+  - id: P2
+    at: [8, 0]
+    size: 6x6
+    phase: p1
+  - id: P3
+    at: [0, 8]
+    size: 6x6
+    phase: p1
+  - id: P4
+    at: [8, 8]
+    size: 6x6
+    phase: p1
+
+# The joists sit ON the beams (framing: drop), so each beam tops out one
+# joist depth below the deck: 2'-6" less a 2x8's 7-1/4" is 1'-10-3/4".
+beams:
+  - id: B-N
+    label: North beam
+    axis: x
+    supports: [P1, P2]
+    section: 2x12
+    trib_ft: 4              # half the 8' joist span it carries
+    top_ft: 1'-10-3/4"
+    phase: p1
+  - id: B-S
+    label: South beam
+    axis: x
+    supports: [P3, P4]
+    section: 2x12
+    trib_ft: 4              # half the 8' joist span it carries
+    top_ft: 1'-10-3/4"
+    phase: p1
+
+connections:
+  - at: P1
+    member: B-N
+    type: notch
+  - at: P2
+    member: B-N
+    type: notch
+  - at: P3
+    member: B-S
+    type: notch
+  - at: P4
+    member: B-S
+    type: notch
+
+joist_fields:
+  - id: J1
+    label: Deck joists
+    section: 2x8
+    span_axis: y
+    bounds_x: [0, 8]
+    bounds_y: [0, 8]
+    bears_on: [B-N, B-S]
+    spacing_in: 16
+    framing: drop
+    blocking: true
+    phase: p1

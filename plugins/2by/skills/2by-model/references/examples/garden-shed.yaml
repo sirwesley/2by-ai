@@ -1,0 +1,411 @@
+# Garden shed — 8'-0" × 6'-0", freestanding on precast deck blocks.
+#
+# A deliberately different shape of job from the loft and the deck: tiny spans,
+# light sections, twelve posts carrying almost nothing, and a floor frame that
+# is DROP framed — joists over the beams rather than hung between them. That
+# combination exercises the parts of the engine the other two models never
+# touch: the tie path instead of the hanger path, post caps at every bearing,
+# and footings sized by block bearing rather than by load.
+#
+# WHAT THIS MODEL COVERS: the floor frame. Posts, blocks, perimeter rim,
+# joists, decking.
+#
+# AND NOW THE WALLS AND ROOF TOO. The engine used to model one horizontal
+# plane per element, so a stud wall and a sloped rafter pair had no vocabulary
+# in it. Both are first-class now: a wall is a vertical plane between two
+# points with studs at a spacing, and a roof is a pitch over a footprint whose
+# rafters carry a true length and cut angles the plan view cannot show.
+
+project:
+  slug: garden-shed
+  title: Garden Shed 8x6
+  revision: r5
+  date: 2026-09-03
+  live_psf: 40            # storage floor
+  dead_psf: 8             # 2x6 joists, 3/4" decking, no finishes
+  roof_live_psf: 20       # snow and maintenance — NOT the floor's 40
+  roof_dead_psf: 10       # rafters, sheathing, shingles
+  allowable_psf: 1500     # firm undisturbed soil under precast blocks
+  waste_pct: 10
+  # How the four corners are framed. 3-stud is the strongest and the most
+  # lumber: two studs from the wall that runs through, plus the butting wall's
+  # end stud. california turns one stud flat as drywall backing for the same
+  # count; clips uses two studs and metal clips instead of backing.
+  corner_style: 3-stud
+  # Which way the orthographic views are arranged. third-angle puts the top
+  # view above the front and the right view to the right, which is the North
+  # American convention; first-angle swaps both pairs. The sheet states which,
+  # because the arrangement on its own reads fine and builds wrong.
+  projection: third-angle
+  deck_top_ft: 1'-7"      # top of decking; joists ride ON the beams
+
+phases:
+  - id: p1
+    name: Floor Frame
+  - id: p2
+    name: Walls and Roof
+
+# Nothing over 12' is bought for this job. This replaces a stock: block that
+# restated 2x4, 2x6 and 4x4 as [8, 10, 12] section by section; the cap says
+# the same in one line and the Findings report it once. Without it the cut
+# list nests the wall and roof framing into 14' stock.
+supply:
+  max_stock_ft: 12
+
+# Twelve deck blocks: four columns at 2'-8" centres, three rows at 3'-0".
+# Posts are trimmed on site to suit the ground, which is why every one of them
+# is the same nominal length in the cut list and none of them is exact.
+posts:
+  - id: B1
+    at: [0, 0]
+    size: 4x4
+    phase: p1
+    perimeter: true
+  - id: B2
+    at: [2'-8", 0]
+    size: 4x4
+    phase: p1
+    perimeter: true
+  - id: B3
+    at: [5'-4", 0]
+    size: 4x4
+    phase: p1
+    perimeter: true
+  - id: B4
+    at: [8, 0]
+    size: 4x4
+    phase: p1
+    perimeter: true
+  - id: B5
+    at: [0, 3]
+    size: 4x4
+    phase: p1
+    perimeter: false
+  - id: B6
+    at: [2'-8", 3]
+    size: 4x4
+    phase: p1
+    perimeter: false
+  - id: B7
+    at: [5'-4", 3]
+    size: 4x4
+    phase: p1
+    perimeter: false
+  - id: B8
+    at: [8, 3]
+    size: 4x4
+    phase: p1
+    perimeter: false
+  - id: B9
+    at: [0, 6]
+    size: 4x4
+    phase: p1
+    perimeter: true
+  - id: B10
+    at: [2'-8", 6]
+    size: 4x4
+    phase: p1
+    perimeter: true
+  - id: B11
+    at: [5'-4", 6]
+    size: 4x4
+    phase: p1
+    perimeter: true
+  - id: B12
+    at: [8, 6]
+    size: 4x4
+    phase: p1
+    perimeter: true
+
+# Three 8'-0" runs carry the joists; the two 6'-0" runs are the short floor
+# edges and carry nothing but themselves and the decking edge.
+beams:
+  - id: EDGE-N
+    label: Long floor edge, north
+    axis: x
+    supports: [B1, B2, B3, B4]
+    plies: 1
+    section: 2x6
+    trib_ft: 1.125
+    bearing_ft: 0'-8"
+    phase: p1
+    # A continuous joist puts most of its load on the centre beam, so the two
+    # edges run at single-figure utilisation. 2x6 is not oversizing here — it
+    # is the shallowest member a 2x6 joist can bear on and still be nailed.
+    waive: [low-util]
+  - id: MID
+    label: Centre floor beam
+    axis: x
+    supports: [B5, B6, B7, B8]
+    plies: 1
+    section: 2x6
+    trib_ft: 3.75
+    bearing_ft: 0'-8"
+    phase: p1
+  - id: EDGE-S
+    label: Long floor edge, south
+    axis: x
+    supports: [B9, B10, B11, B12]
+    plies: 1
+    section: 2x6
+    trib_ft: 1.125
+    bearing_ft: 0'-8"
+    phase: p1
+    waive: [low-util]
+  # Drop framing puts the rims at JOIST level — they are nailed to the joist
+  # ends, not hung between the beams — so they are stated by top elevation
+  # rather than by bearing.
+  - id: RIM-W
+    label: Short floor edge, west
+    axis: y
+    supports: [B1, B5, B9]
+    plies: 1
+    section: 2x6
+    trib_ft: 0
+    top_ft: 1'-7"
+    phase: p1
+    waive: [low-util]
+  - id: RIM-E
+    label: Short floor edge, east
+    axis: y
+    supports: [B4, B8, B12]
+    plies: 1
+    section: 2x6
+    trib_ft: 0
+    top_ft: 1'-7"
+    phase: p1
+    waive: [low-util]
+
+# bounds_x / bounds_y are beam CENTRELINES here, as they are everywhere in
+# this format. So the 8'-0" x 6'-0" in the title is the WALL footprint — the
+# outside of the sheathing — and the floor frame under it measures 6'-1-1/2"
+# on the span, because a drop joist runs out over its rim to the rim's outside
+# face. The floor therefore oversails the walls by 3/4" at each rim, which is
+# the lap the siding wants. Decking and the sheet count follow the frame, not
+# this footprint: DECK AREA reads 49 sf, not 48.
+#
+# Drop framed: joists sit ON all three long runs, so each joist crosses the
+# centre beam as a two-span member and gets a tie at every bearing — three per
+# joist, not two. Nothing is hung, so there is not a hanger in this job.
+# A two-span joist puts about 5/8 of the load on the centre beam and 3/8 split
+# between the edges, which is why the tributary widths are 1-1/8 / 3-3/4 /
+# 1-1/8 rather than an even third each.
+joist_fields:
+  - id: FLOOR
+    label: Shed floor
+    section: 2x6
+    span_axis: y
+    bounds_x: [0, 8]
+    bounds_y: [0, 6]
+    framing: drop
+    spacing_in: 16
+    tie: H2.5A
+    waive: [low-util]       # the birdsmouth governs this section, not bending
+    bears_on: [EDGE-N, MID, EDGE-S]
+    blocking: false
+    phase: p1
+
+# Every bearing is a post cap: the beam sits on the end grain of a 4x4 and the
+# cap resists uplift and lateral only. BC4 is the one-piece cap — 605 lb
+# uplift, which for a shed on blocks is a wind question, not a load question.
+connections:
+  - at: B1
+    member: EDGE-N
+    type: cap
+    part: BC4
+  - at: B2
+    member: EDGE-N
+    type: cap
+    part: BC4
+  - at: B3
+    member: EDGE-N
+    type: cap
+    part: BC4
+  - at: B4
+    member: EDGE-N
+    type: cap
+    part: BC4
+  - at: B5
+    member: MID
+    type: cap
+    part: BC4
+  - at: B6
+    member: MID
+    type: cap
+    part: BC4
+  - at: B7
+    member: MID
+    type: cap
+    part: BC4
+  - at: B8
+    member: MID
+    type: cap
+    part: BC4
+  - at: B9
+    member: EDGE-S
+    type: cap
+    part: BC4
+  - at: B10
+    member: EDGE-S
+    type: cap
+    part: BC4
+  - at: B11
+    member: EDGE-S
+    type: cap
+    part: BC4
+  - at: B12
+    member: EDGE-S
+    type: cap
+    part: BC4
+
+# ═══════════════ PHASE 2 — WALLS AND ROOF ═══════════════
+#
+# Walls sit on the floor deck at 1'-7" and run to 9'-11-1/2", which is 8'-4-1/2"
+# of wall: one bottom plate, two top plates, and studs at a clean 8'-0" so they
+# come out of stock uncut.
+#
+# The two long walls carry the roof. The two short ones are gable ends — they
+# carry nothing but their own sheathing, and their tops follow the rake, so
+# every stud in them is a different length.
+walls:
+  - id: W-N
+    label: North wall
+    from: [0, 0]
+    to: [8, 0]
+    align: outside          # the line IS the outside face: body sits on the deck
+    bearing: true           # rafters land here
+    bottom_ft: 1'-7"
+    top_ft: 8'-7-1/2"
+    section: 2x4
+    spacing_in: 24
+    top_plates: 2           # overlapped at the corners, per the drawing
+    bottom_plates: 1
+    sheathing: 7/16" OSB
+    housewrap: true
+    cladding: board and batten
+    phase: p2
+
+  - id: W-S
+    label: South wall
+    from: [0, 6]
+    to: [8, 6]
+    align: outside
+    bearing: true
+    bottom_ft: 1'-7"
+    top_ft: 8'-7-1/2"
+    section: 2x4
+    spacing_in: 24
+    top_plates: 2
+    bottom_plates: 1
+    sheathing: 7/16" OSB
+    housewrap: true
+    cladding: board and batten
+    phase: p2
+
+  - id: W-W
+    label: West gable end
+    from: [0, 0]
+    to: [0, 6]
+    align: outside
+    bearing: false          # gable end: carries its own sheathing only
+    bottom_ft: 1'-7"
+    top_ft: 8'-7-1/2"
+    section: 2x4
+    spacing_in: 24
+    top_plates: 2           # doubled like the long walls; the upper plate is
+                            # the SHORT one at the corners, lapped by the long
+                            # wall that runs through
+    bottom_plates: 1
+    gable: ROOF             # top follows the rake of this roof
+    sheathing: 7/16" OSB
+    housewrap: true
+    cladding: board and batten
+    phase: p2
+
+  - id: W-E
+    label: East gable end
+    from: [8, 0]
+    to: [8, 6]
+    align: outside
+    bearing: false
+    bottom_ft: 1'-7"
+    top_ft: 8'-7-1/2"
+    section: 2x4
+    spacing_in: 24
+    top_plates: 2           # doubled, as W-W
+    bottom_plates: 1
+    gable: ROOF
+    sheathing: 7/16" OSB
+    housewrap: true
+    cladding: board and batten
+    phase: p2
+
+# All four walls are doubled at the top and every wall top lands at the same
+# 8'-7-1/2". The gable ends were single-plated, which left their plate underside
+# 1-1/2" above the long walls' and put a step in every corner of the ISO.
+#
+# Wall height: 6'-8" studs, so bottom plate + stud + two top plates is
+# 7'-0-1/2" and the top of wall lands at 8'-7-1/2" over a floor that is
+# already 1'-7" up on blocks. The first cut of this model used 8'-0" studs
+# because they come out of stock uncut — which gave a 6x8 shed with nearly
+# ten feet of wall. Stock yield is not a reason to draw a phone booth.
+#
+# Gable roof, ridge along the 8'-0" length, rafters spanning the 6'-0" width.
+#
+# The drawing gives a 52-1/2" rafter with a 10" overhang and 30-degree cuts,
+# which works back to about 6.9 in 12. Declared as 7 in 12 — the nearest pitch
+# a framing square actually has — from which the tool derives a 53-1/4" rafter
+# at 30.3 degrees. If you want the drawing's exact 52-1/2", change pitch to 6.5
+# and the whole schedule follows.
+roof:
+  - id: ROOF
+    label: Gable roof
+    type: gable
+    ridge_axis: x
+    bounds_x: [0, 8]
+    bounds_y: [0, 6]
+    pitch: 7                # rise in 12
+    # 2x6 rather than 2x4: seating a rafter on a 3-1/2" plate at 7 in 12
+    # removes 1-3/4" of its depth, which is more than a third of a 2x4 and
+    # leaves too little heel. Bending is nowhere near the governing case here
+    # — the birdsmouth is.
+    section: 2x6
+    spacing_in: 24
+    overhang_in: 10          # eave, across the rafter run
+    rake_overhang_in: 6      # gable end, along the ridge
+    ridge_section: 2x6
+    support_section: 2x4    # 2x4, not the 2x3 on the old drawing: 2x3 is not
+                            # a section this yard stocks, so the cut list was
+                            # nesting it against a length nobody sells.
+    blocking: true          # top edge cut to the pitch angle
+    bears_on: [W-N, W-S]
+    tie: H2.5A
+    waive: [low-util]       # the birdsmouth governs this section, not bending
+    sheathing: 7/16" OSB
+    roofing: asphalt shingle
+    phase: p2
+
+# at_ft places an opening along its wall, measured from that wall's from end to
+# the CENTRE of the rough opening. Leave it out and the tool centres the
+# opening and says so — fine for one door, wrong the moment a wall has two.
+openings:
+  - id: DOOR
+    label: Door opening
+    in_wall: W-E
+    kind: door
+    at_ft: 3                # centre of the opening, from the wall's from end
+    width_in: 36
+    height_in: 74
+    clear_width_in: 36
+    min_width_in: 32
+  - id: WINDOW
+    label: Window opening
+    in_wall: W-N
+    kind: window
+    at_ft: 2                # near the west end, off the door wall
+    width_in: 24
+    height_in: 24
+    sill_in: 42
+
+# Fastening from the drawing: frame joints two 3-1/2" nails, sheathing 2-1/2"
+# nails, floor decking 2-1/2" deck screws.
