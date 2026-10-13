@@ -587,6 +587,10 @@ Problems in the file itself:
   id that names nothing. Check the spelling against the list it names.
 - `phase`: a phase that `phases:` does not declare, or a member built before
   what it stands on.
+- `wrong-file`: this is 2by's lumber file or hardware catalogue, not a
+  model. Those are separate files that belong to the person's account (the
+  LUMBER and HARDWARE tabs) and hold cited engineering values: never write
+  or edit them. Write the model instead.
 - `format`: the file says it is a newer model format than this 2by reads.
   Write `format: 1` and use only the keys in this guide.
 - `dimension`: a number 2by could not read. Fix the value; 2by will not
