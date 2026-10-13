@@ -10,7 +10,7 @@
       "name": "2by",
       "source": "./plugins/2by",
       "description": "Write 2by models with Claude: the model guide as a skill, and 2by's own checks as tools.",
-      "version": "0.1.0"
+      "version": "0.2.0"
     }
   ]
 }

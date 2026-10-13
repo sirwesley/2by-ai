@@ -1,7 +1,7 @@
 {
   "name": "2by",
   "displayName": "2by",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Write 2by models with Claude. 2by turns a YAML model of a small timber structure (a deck, a shed, a loft) into framing drawings, span checks, a cut list and a build log. This plugin teaches Claude the model format and connects it to 2by's own checks.",
   "author": {
     "name": "Code House Productions",
