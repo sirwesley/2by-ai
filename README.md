@@ -30,6 +30,15 @@ on six 6x6 posts…"
 - **Connector:** add a custom connector with the address
   `https://2by.app/mcp`. It needs no sign-in.
 
+## Any assistant that runs commands
+
+```
+npx @2by/check model.yaml
+```
+
+[@2by/check](https://www.npmjs.com/package/@2by/check) checks a model with
+2by's own engine, from the command line.
+
 ## ChatGPT and other assistants
 
 - **Guide:** start at [2by.app/ai](https://2by.app/ai). The guide is at

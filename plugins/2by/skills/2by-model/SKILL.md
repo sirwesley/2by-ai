@@ -43,8 +43,8 @@ Use whichever of these is available, in this order:
 
 - **The 2by tools** (this plugin connects `https://2by.app/mcp`): call
   `validate_model` with the whole file.
-- **The `2by-check` command**, if it is installed:
-  `2by-check model.yaml --json`.
+- **The `2by-check` command**: `npx @2by/check model.yaml --json` (it needs
+  Node 18 or later).
 - **The web check**: `POST https://2by.app/api/ai/validate` with
   `{"yaml": "<the whole file>"}`.
 

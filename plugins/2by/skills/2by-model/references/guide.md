@@ -65,7 +65,8 @@ for the newer guide.
    - as tools, from the 2by MCP server at `https://2by.app/mcp`
      (`validate_model`, `get_guide`, `get_example`);
    - over HTTP: `POST https://2by.app/api/ai/validate` with
-     `{"yaml": "<the whole file>"}` (described at `/ai/openapi.json`).
+     `{"yaml": "<the whole file>"}` (described at `/ai/openapi.json`);
+   - from a command line: `npx @2by/check model.yaml --json`.
 
    Both answer with `ok`, the ERROR and WARN findings (code, member, line
    for problems in the file itself, message) and a `summary` of what the
