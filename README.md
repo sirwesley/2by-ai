@@ -17,7 +17,7 @@ The plugin adds:
 - the **2by-model** skill: the complete model guide and examples, and how
   to work;
 - the **2by** connector (`https://2by.app/mcp`): `validate_model`,
-  `get_guide` and `get_example`, so Claude checks every model against 2by's
+  `get_guide`, `get_example` and `list_libraries`, so Claude checks every model against 2by's
   own engine before handing it over.
 
 Then describe your project: "Write a 2by model for a 10 × 12 deck, 2 feet up,

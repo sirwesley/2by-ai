@@ -1,0 +1,375 @@
+{
+  "materials": "materials: { lumber: southern-pine@l4, hardware: simpson@c21 }",
+  "libraries": [
+    {
+      "kind": "lumber",
+      "id": "southern-pine",
+      "name": "Southern Pine",
+      "title": "Southern Pine No.2 framing lumber, timbers and LVL",
+      "current": "l4",
+      "revisions": [
+        "l4"
+      ],
+      "date": "2026-09-10",
+      "use": "southern-pine@l4",
+      "what": "Species, grades and design values with their printed sources, and each section's species and dressed size. The stock lengths are not here: they are the person's yard.",
+      "species": [
+        {
+          "id": "SP-4",
+          "name": "Southern Pine, 2\"-4\" wide",
+          "grade": "No.2",
+          "source": "NDS Supplement Table 4B, Southern Pine No.2, 2\"-4\" wide",
+          "verified": true
+        },
+        {
+          "id": "SP-6",
+          "name": "Southern Pine, 5\"-6\" wide",
+          "grade": "No.2",
+          "source": "NDS Supplement Table 4B, Southern Pine No.2, 5\"-6\" wide",
+          "verified": true
+        },
+        {
+          "id": "SP-8",
+          "name": "Southern Pine, 8\" wide",
+          "grade": "No.2",
+          "source": "NDS Supplement Table 4B, Southern Pine No.2, 8\" wide",
+          "verified": true
+        },
+        {
+          "id": "SP-10",
+          "name": "Southern Pine, 10\" wide",
+          "grade": "No.2",
+          "source": "NDS Supplement Table 4B, Southern Pine No.2, 10\" wide",
+          "verified": true
+        },
+        {
+          "id": "SP-12",
+          "name": "Southern Pine, 12\" wide",
+          "grade": "No.2",
+          "source": "NDS Supplement Table 4B, Southern Pine No.2, 12\" wide",
+          "verified": true
+        },
+        {
+          "id": "SP-TIMBER",
+          "name": "Southern Pine, timbers 5x5 and larger",
+          "grade": "No.2",
+          "source": "NDS Supplement Table 4D, Southern Pine No.2, 5\" x 5\" and Larger — wet service as tabulated; checked against the printed page 2026-09-10",
+          "verified": true
+        },
+        {
+          "id": "LVL",
+          "name": "Boise Cascade VERSA-LAM 2.1E 3100 LVL (Southern Pine)",
+          "grade": "2.1E 3100",
+          "source": "APA PR-L266(F), VERSA-LAM 2.1E 3100/2150, joist orientation, normal duration, dry service",
+          "verified": true
+        }
+      ],
+      "sections": [
+        {
+          "section": "2x4",
+          "species": "SP-4",
+          "b_in": 1.5,
+          "d_in": 3.5
+        },
+        {
+          "section": "2x6",
+          "species": "SP-6",
+          "b_in": 1.5,
+          "d_in": 5.5
+        },
+        {
+          "section": "2x8",
+          "species": "SP-8",
+          "b_in": 1.5,
+          "d_in": 7.25
+        },
+        {
+          "section": "2x10",
+          "species": "SP-10",
+          "b_in": 1.5,
+          "d_in": 9.25
+        },
+        {
+          "section": "2x12",
+          "species": "SP-12",
+          "b_in": 1.5,
+          "d_in": 11.25
+        },
+        {
+          "section": "4x4",
+          "species": "SP-4",
+          "b_in": 3.5,
+          "d_in": 3.5,
+          "treated": "ground contact (UC4A)"
+        },
+        {
+          "section": "4x6",
+          "species": "SP-6",
+          "b_in": 3.5,
+          "d_in": 5.5,
+          "treated": "ground contact (UC4A)"
+        },
+        {
+          "section": "6x6",
+          "species": "SP-TIMBER",
+          "b_in": 5.5,
+          "d_in": 5.5,
+          "treated": "ground contact (UC4A)"
+        },
+        {
+          "section": "8x8",
+          "species": "SP-TIMBER",
+          "b_in": 7.25,
+          "d_in": 7.25,
+          "treated": "ground contact (UC4A)"
+        },
+        {
+          "section": "LVL-9.25",
+          "species": "LVL",
+          "b_in": 1.75,
+          "d_in": 9.25
+        },
+        {
+          "section": "LVL-11.875",
+          "species": "LVL",
+          "b_in": 1.75,
+          "d_in": 11.875
+        }
+      ]
+    },
+    {
+      "kind": "hardware",
+      "id": "simpson",
+      "name": "Simpson",
+      "title": "Simpson Strong-Tie — common wood connectors",
+      "current": "c21",
+      "revisions": [
+        "c21"
+      ],
+      "date": "2026-09-03",
+      "use": "simpson@c21",
+      "what": "Connectors with their published ratings and the page each was read from. Name a part only when the person has chosen it; otherwise 2by picks one.",
+      "parts": {
+        "base": [
+          "ABA66Z",
+          "ABA46Z",
+          "ABU44Z",
+          "ABU66Z",
+          "ABU88Z",
+          "ABU46Z"
+        ],
+        "cap": [
+          "AC4",
+          "AC6",
+          "AC4RZ",
+          "AC6RZ",
+          "BC4",
+          "BC46",
+          "BC6",
+          "BC8",
+          "LSTA12-PAIR"
+        ],
+        "girder": [
+          "LUS28-2",
+          "LUS210-2",
+          "HGUS28-2",
+          "HGUS210-2",
+          "HGUS410",
+          "HGUS412",
+          "HGUS414",
+          "HU210-2",
+          "HU212-2",
+          "HUS48",
+          "HUS410",
+          "HUS412",
+          "HHUS48",
+          "HHUS410",
+          "HUCQ410-SDS",
+          "HUCQ412-SDS",
+          "HUC410",
+          "HUC412",
+          "ITS3.56/11.88",
+          "MIT411.88",
+          "BA3.56/11.88",
+          "BA3.12X",
+          "WP3.12X",
+          "THAI-2X 3.125"
+        ],
+        "joist": [
+          "LU24",
+          "LU26",
+          "LU28",
+          "LU210",
+          "LUS28",
+          "LUS210"
+        ],
+        "strap": [
+          "ST2115",
+          "LSTA9",
+          "LSTA12",
+          "LSTA15",
+          "LSTA18",
+          "LSTA21",
+          "LSTA24",
+          "LSTA30",
+          "LSTA36",
+          "MSTA9",
+          "MSTA12",
+          "MSTA15",
+          "MSTA18",
+          "MSTA21",
+          "MSTA24",
+          "MSTA30",
+          "MSTA36",
+          "MSTA49",
+          "ST9",
+          "ST12",
+          "ST18",
+          "ST22",
+          "HRS6",
+          "HRS8",
+          "HRS12",
+          "ST292",
+          "ST2122",
+          "ST2215",
+          "ST6215",
+          "ST6224",
+          "ST6236",
+          "MSTI26",
+          "MSTI36",
+          "MSTI48",
+          "MSTI60",
+          "MSTI72",
+          "HTP37Z",
+          "MSTC28",
+          "MSTC40",
+          "MSTC52",
+          "MSTC66",
+          "MSTC78",
+          "HRS416Z",
+          "LSTI49",
+          "LSTI73"
+        ],
+        "tie": [
+          "H2.5A",
+          "H2.5ASS",
+          "H2.5T"
+        ]
+      }
+    }
+  ],
+  "yard": {
+    "what": "The stock lengths each section is sold in are the person's yard, not the library: 2by plans cuts and the shopping list from them. Signed in, the person sets theirs on 2by.app/app/materials (My yard); otherwise 2by's default yard below is used. A model may override them for one job with its own stock: block.",
+    "default": [
+      {
+        "section": "2x4",
+        "lengths": [
+          8,
+          10,
+          12,
+          14,
+          16
+        ]
+      },
+      {
+        "section": "2x6",
+        "lengths": [
+          8,
+          10,
+          12,
+          14,
+          16
+        ]
+      },
+      {
+        "section": "2x8",
+        "lengths": [
+          8,
+          10,
+          12,
+          14,
+          16
+        ]
+      },
+      {
+        "section": "2x10",
+        "lengths": [
+          8,
+          10,
+          12,
+          14,
+          16
+        ]
+      },
+      {
+        "section": "2x12",
+        "lengths": [
+          10,
+          12,
+          14,
+          16
+        ]
+      },
+      {
+        "section": "4x4",
+        "lengths": [
+          8,
+          10,
+          12
+        ]
+      },
+      {
+        "section": "4x6",
+        "lengths": [
+          8,
+          10,
+          12,
+          14,
+          16,
+          20
+        ]
+      },
+      {
+        "section": "6x6",
+        "lengths": [
+          8,
+          10,
+          12,
+          14,
+          16
+        ]
+      },
+      {
+        "section": "8x8",
+        "lengths": [
+          8,
+          10,
+          12,
+          14,
+          16
+        ]
+      },
+      {
+        "section": "LVL-9.25",
+        "lengths": [
+          20,
+          22,
+          24,
+          26,
+          28
+        ]
+      },
+      {
+        "section": "LVL-11.875",
+        "lengths": [
+          24,
+          26,
+          28,
+          30,
+          32
+        ]
+      }
+    ]
+  },
+  "guide": "https://2by.app/ai/guide.md"
+}

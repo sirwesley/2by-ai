@@ -16,6 +16,10 @@
 # points with studs at a spacing, and a roof is a pitch over a footprint whose
 # rafters carry a true length and cut angles the plan view cannot show.
 
+# 2by's libraries this design is checked against (docs/materials-plan.md):
+# no revision, so a demo always follows 2by's current ones.
+materials: { lumber: southern-pine, hardware: simpson }
+
 project:
   slug: garden-shed
   title: Garden Shed 8x6

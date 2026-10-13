@@ -190,6 +190,19 @@ Ask about each of these. Skip what does not apply.
   no stock length that holds it.
 - **Walls** need `sheathing` (or 2by reports studs with nothing bracing
   them). Ask what the person will use.
+- **Name the libraries** the model is written for, so it checks the same
+  everywhere:
+
+  ```yaml
+  materials: { lumber: southern-pine@l4, hardware: simpson@c21 }
+  ```
+
+  These are 2by's current lumber and hardware libraries: the lumber design
+  values and the connector ratings come from them, so the model checks the
+  same wherever it is opened. The person's own yard decides the stock
+  lengths (signed in, they set it on Materials). What each library holds,
+  and 2by's default yard, is listed by `list_libraries` on the 2by tools,
+  by `2by-check libraries`, and at https://2by.app/ai/libraries.json.
 - Give every entry a `phase` from `phases:`, and declare the phases in build
   order.
 - Members are sized by `section` (beams, joists, studs, rafters) and posts by
@@ -224,6 +237,15 @@ Job-wide settings and loads. A block with these keys.
 | `uplift_lb` | a number, lb | Design uplift per connection, lb. |
 | `corner_style` | text, e.g. `3-stud`, `california`, `clips` | How wall corners are framed. |
 | `projection` | one of `third-angle`, `first-angle`, `first` | Arrangement of the orthographic views. |
+
+### `materials`
+
+Which of 2by's libraries the model is written for, so it checks the same everywhere. Leave it out and it is checked against the lumber and hardware files it is given: in 2by, its current libraries. A block with these keys.
+
+| Key | Written as | Meaning |
+|---|---|---|
+| `lumber` | text | The lumber library the model is written for, as id@revision (southern-pine@l4); leave out the revision for 2by's current one. Its species, design values and sections are used, with the stock lengths from the person's yard. |
+| `hardware` | text | The hardware library, as id@revision (simpson@c21). Its connectors are used. |
 
 ### `slab`
 
@@ -587,6 +609,9 @@ Problems in the file itself:
   id that names nothing. Check the spelling against the list it names.
 - `phase`: a phase that `phases:` does not declare, or a member built before
   what it stands on.
+- `materials`: a library or revision in `materials:` that 2by does not have
+  (use the ones in section 4), or a note that 2by has a newer revision than
+  the one named. Update it only if the person agrees.
 - `wrong-file`: this is 2by's lumber file or hardware catalogue, not a
   model. Those are separate files that belong to the person's account (the
   LUMBER and HARDWARE tabs) and hold cited engineering values: never write
@@ -640,6 +665,8 @@ errors and no warnings. The loads in it are examples only.
 ```yaml
 # A freestanding 8' x 8' deck on four posts. Example only: every load
 # below must come from YOUR building department, not from this file.
+materials: { lumber: southern-pine@l4, hardware: simpson@c21 }   # 2by's libraries this is written for
+
 project:
   slug: small-deck
   title: Small Deck 8x8

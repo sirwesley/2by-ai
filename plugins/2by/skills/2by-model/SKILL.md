@@ -36,6 +36,13 @@ If the 2by tools are connected, `get_guide` returns the live copy.
 3. **Engineering values.** Never invent loads, soil bearing or code limits.
    Never change what the person asked for (sizes, heights, loads, the longest
    board they can buy) without asking.
+4. **Name 2by's libraries.** Every model says which lumber and hardware
+   libraries it is written for, with the `materials:` line the guide gives,
+   so its design values and connector ratings are 2by's wherever it is
+   checked. [references/libraries.json](references/libraries.json) (or
+   `list_libraries`, or `2by-check libraries`) lists the sections, species
+   and parts each holds, and 2by's default yard: use sections and parts
+   from it, and stock lengths a yard sells.
 
 ## 3. Check it with 2by before handing it over
 
@@ -53,7 +60,9 @@ Each answers with:
 - `ok`;
 - the ERROR and WARN findings, each with a code, the member and, for problems
   in the file itself, the line;
-- a `summary` of what the model builds.
+- a `summary` of what the model builds;
+- `materials`: the libraries it was checked against, with a note when the
+  model names none.
 
 Fix every ERROR, and fix each WARN or ask the person about it. Check again
 until `ok` is true. Read the summary back to the person in plain words so

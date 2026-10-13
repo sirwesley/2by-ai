@@ -1,5 +1,7 @@
 # A freestanding 8' x 8' deck on four posts. Example only: every load
 # below must come from YOUR building department, not from this file.
+materials: { lumber: southern-pine@l4, hardware: simpson@c21 }   # 2by's libraries this is written for
+
 project:
   slug: small-deck
   title: Small Deck 8x8

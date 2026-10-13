@@ -28,6 +28,10 @@
 # TAKEOFF and FINDINGS panels — never from a comment. Restating a derived
 # number in prose is how a model and its output drift apart.
 
+# 2by's libraries this design is checked against (docs/materials-plan.md):
+# no revision, so a demo always follows 2by's current ones.
+materials: { lumber: southern-pine, hardware: simpson }
+
 project:
   slug: tiered-deck
   title: Three-Tier Back Deck
