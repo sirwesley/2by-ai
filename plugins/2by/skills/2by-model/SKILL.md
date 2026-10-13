@@ -68,13 +68,20 @@ Fix every ERROR, and fix each WARN or ask the person about it. Check again
 until `ok` is true. Read the summary back to the person in plain words so
 they can confirm it is what they meant.
 
+With the 2by tools, show them too: `preview_model` returns a picture of the
+plan and the 3D view as 2by draws them, with the same answer. Show it before
+handing over the file, and ask whether it is what they meant.
+
 If none of these is available, hand over the file and ask the person to open
 it in 2by and paste back what **COPY FOR AI** in FINDINGS copies.
 
 ## 4. Hand it over
 
-Give the complete file, never a fragment. Save it as `<name>.yaml` when you
-can write files. The person opens it in 2by:
+If the person's 2by account is connected (`https://2by.app/mcp/account`, so
+`save_design` is available), save it there once they have seen the preview
+and said to, and give them the link it returns. Otherwise give the complete
+file, never a fragment. Save it as `<name>.yaml` when you can write files.
+The person opens it in 2by:
 
 - signed in: **My designs → New design → Choose a .yaml file**;
 - or in the demo at `https://2by.app/demo`: **IMPORT**.

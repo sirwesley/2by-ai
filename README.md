@@ -16,9 +16,16 @@ The plugin adds:
 
 - the **2by-model** skill: the complete model guide and examples, and how
   to work;
-- the **2by** connector (`https://2by.app/mcp`): `validate_model`,
-  `get_guide`, `get_example` and `list_libraries`, so Claude checks every model against 2by's
+- the **2by** connector (`https://2by.app/mcp`, no sign-in): `validate_model`,
+  `preview_model` (a picture of the plan and 3D view), `get_guide`,
+  `get_example` and `list_libraries`, so Claude checks every model against 2by's
   own engine before handing it over.
+
+With a 2by account, you can also connect `https://2by.app/mcp/account` as a
+custom connector. It signs you in to 2by once, then adds `save_design` and
+`list_designs`: Claude saves the design to My designs (after you say so) and
+gives you the link. Disconnect it any time under Connected assistants on My
+designs.
 
 Then describe your project: "Write a 2by model for a 10 × 12 deck, 2 feet up,
 on six 6x6 posts…"

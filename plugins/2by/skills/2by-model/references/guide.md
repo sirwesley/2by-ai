@@ -60,10 +60,14 @@ for the newer guide.
 4. **Write the whole file**, following sections 4 to 7. Use the comments to
    say where each number came from.
 5. **Hand it back complete**, as one YAML block the person can save as
-   `<name>.yaml`. Never hand back fragments or diffs.
+   `<name>.yaml`. Never hand back fragments or diffs. Connected to the
+   person's 2by account (`https://2by.app/mcp/account`), save it there with
+   `save_design` once they have seen the preview and said to, and give them
+   the link instead.
 6. **Check it yourself, if you can.** 2by's own check is open to you:
    - as tools, from the 2by MCP server at `https://2by.app/mcp`
-     (`validate_model`, `get_guide`, `get_example`);
+     (`validate_model`, `preview_model`, `get_guide`, `get_example`,
+     `list_libraries`);
    - over HTTP: `POST https://2by.app/api/ai/validate` with
      `{"yaml": "<the whole file>"}` (described at `/ai/openapi.json`);
    - from a command line: `npx @2by/check model.yaml --json`.
@@ -71,8 +75,10 @@ for the newer guide.
    Both answer with `ok`, the ERROR and WARN findings (code, member, line
    for problems in the file itself, message) and a `summary` of what the
    model builds. Read the summary back to the person to confirm it is what
-   they meant. Fix and check again until `ok` is true, then hand over the
-   file.
+   they meant. With the MCP server, `preview_model` also returns a picture
+   of the plan and the 3D view as 2by draws them: show it, so the person
+   can see what they are getting before they open 2by. Fix and check again
+   until `ok` is true, then hand over the file.
 7. **Otherwise, ask for the findings.** The person opens the file in 2by:
    - signed in: **My designs → New design → Choose a .yaml file**;
    - or in the demo at `https://2by.app/demo`: **IMPORT**.
