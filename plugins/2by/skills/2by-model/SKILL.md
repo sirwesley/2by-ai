@@ -65,7 +65,11 @@ Each answers with:
   model names none.
 
 Fix every ERROR, and fix each WARN or ask the person about it. Check again
-until `ok` is true. Read the summary back to the person in plain words so
+until `ok` is true. When the person decides a finding is handled outside the
+model (a stair side against a wall, a part they have checked by hand), record
+it in the model's `addressed:` list in their words, and only with their say
+(guide section 8); never use it for a finding a change to the model would
+fix. Read the summary back to the person in plain words so
 they can confirm it is what they meant.
 
 With the 2by tools, show them too: `preview_model` returns a picture of the
@@ -79,7 +83,10 @@ it in 2by and paste back what **COPY FOR AI** in FINDINGS copies.
 
 If the person's 2by account is connected (`https://2by.app/mcp/account`, so
 `save_design` is available), save it there once they have seen the preview
-and said to, and give them the link it returns. Otherwise give the complete
+and said to, and give them the link it returns. To change a design already
+there, read it with `get_design`, change only what was asked, preview it, and
+with their say save it with `update_design` and the version `get_design`
+gave; if 2by says it changed since, read it again. Otherwise give the complete
 file, never a fragment. Save it as `<name>.yaml` when you can write files.
 The person opens it in 2by:
 

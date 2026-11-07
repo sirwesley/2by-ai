@@ -448,7 +448,7 @@ beams:
     label: Stairwell rim (over HDR-E)
     axis: x
     at_ft: 9'-10-1/2"       # 3" wide: faces at 9'-9" and 10'-0", flush with HDR-E's south face
-    from_ft: 22'-5-1/4"
+    from_ft: 22'-6"         # NORTH-E's last joist's east face: it end-nails there, not through half of it (2026-11-05, clash check)
     to_ft: 27'-0-1/4"       # P8's centre line, moved in with the post (r25)
     plies: 2
     section: 2x10
@@ -521,7 +521,7 @@ beams:
     label: South cantilever rim, west
     axis: x
     at_ft: 12'-0-3/4"     # inner face on the joist ends at 12'-0"
-    from_ft: 10
+    from_ft: 12'-1-1/2"    # from RIM-E1's east face: west of it the catwalk's first joist is the platform's rim, one board not two (2026-11-05, clash check)
     to_ft: 16
     plies: 1
     section: 2x10
@@ -600,7 +600,7 @@ joist_fields:
     section: 2x10            # was 2x8; INNER-TRACK drops a full 2x10 so the deck stays level
     span_axis: x
     bounds_x: [2-3/4", 9'-9-1/4"]
-    bounds_y: [12, 34'-4-1/4"]   # y 10–12 is the platform's cantilever; ends on the P11/P12 line (r25)
+    bounds_y: [12'-0-3/4", 34'-4-1/4"]   # first joist beside the platform's joist ends at 12'-0", not centred on them (2026-11-05, clash check); y 10–12 is the platform's cantilever; ends on the P11/P12 line (r25)
     framing: drop
     hung_at: [WALL-TRACK]   # hangers at the wall track; ties over INNER-TRACK
     cantilever_ft: { INNER-TRACK: 2 }        # back-span 9'-6-1/2" ÷ 4 = 28-5/8" max; 24" is well inside.

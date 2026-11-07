@@ -15,7 +15,8 @@
 # Elevations here are INPUTS ONLY — bottom-of-beam (bearing_ft) per tier:
 #   Tier 1  bearing 2'-3"   (at the house)
 #   Tier 2  bearing 1'-5-3/4"
-#   Tier 3  bearing 0'-4"
+#   Tier 3  bearing 0'-3-1/4"  (was 0'-4": its joists ran out under T2-S and T2-RW,
+#           3/4" into them; now their tops land on T2-S's underside — 2026-11-05, clash check)
 #
 # Tiers 1 and 2 are FLUSH framed (joists hung between the beams in
 # hangers). Tier 3 is DROP framed (joists run over the top of its beams),
@@ -243,7 +244,7 @@ beams:
     bearing_ft: 1'-5-3/4"
     phase: p1
 
-  # ---------------- TIER 3 · bearing 0'-4" ----------------
+  # ---------------- TIER 3 · bearing 0'-3-1/4" ----------------
   - id: T3-N
     label: Tier 3 upper beam
     axis: x
@@ -251,7 +252,7 @@ beams:
     plies: 2
     section: 2x8
     trib_ft: 3
-    bearing_ft: 0'-4"
+    bearing_ft: 0'-3-1/4"   # 3/4" down so tier 3's joists clear T2-S (2026-11-05, clash check)
     phase: p2
   - id: T3-S
     label: Tier 3 outer beam
@@ -260,7 +261,7 @@ beams:
     plies: 2
     section: 2x8
     trib_ft: 3
-    bearing_ft: 0'-4"
+    bearing_ft: 0'-3-1/4"   # 3/4" down so tier 3's joists clear T2-S (2026-11-05, clash check)
     phase: p2
   - id: T3-RW
     label: Tier 3 west rim
@@ -269,7 +270,7 @@ beams:
     plies: 1
     section: 2x8
     trib_ft: 0
-    top_ft: 1'-6-1/2"      # joist level, not beam level — T3 is drop framed
+    top_ft: 1'-5-3/4"      # joist level, not beam level — T3 is drop framed; 3/4" down with tier 3 (2026-11-05, clash check)
     phase: p2
   - id: T3-RE
     label: Tier 3 east rim
@@ -278,7 +279,7 @@ beams:
     plies: 1
     section: 2x8
     trib_ft: 0
-    top_ft: 1'-6-1/2"      # joist level, not beam level — T3 is drop framed
+    top_ft: 1'-5-3/4"      # joist level, not beam level — T3 is drop framed; 3/4" down with tier 3 (2026-11-05, clash check)
     phase: p2
 
 joist_fields:

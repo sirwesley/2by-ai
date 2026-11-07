@@ -22,9 +22,10 @@ The plugin adds:
   own engine before handing it over.
 
 With a 2by account, you can also connect `https://2by.app/mcp/account` as a
-custom connector. It signs you in to 2by once, then adds `save_design` and
-`list_designs`: Claude saves the design to My designs (after you say so) and
-gives you the link. Disconnect it any time under Connected assistants on My
+custom connector. It signs you in to 2by once, then adds `save_design`,
+`list_designs`, `get_design` and `update_design`: Claude saves the design to
+My designs (after you say so) and gives you the link, and can open a saved
+design and save a change to it as a new version. Disconnect it any time under Connected assistants on My
 designs.
 
 Then describe your project: "Write a 2by model for a 10 × 12 deck, 2 feet up,

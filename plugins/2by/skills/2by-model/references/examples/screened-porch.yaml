@@ -1,0 +1,533 @@
+# Screened porch — 14'-0" × 12'-0", freestanding, a gable roof on posts and
+# beams.
+#
+# A demo model, not anyone's house: a raised floor on six posts, a roof on
+# the same six posts above it, screen walls between them with a guard framed
+# into each, and a stair down from a screen door in the front wall. It is
+# the porch-and-roof half of the engine the other demos never reach: posts
+# standing on posts, a ridge BEAM on posts (so the rafters push nothing
+# outward and the roof needs no ties), plate beams carrying the rafters,
+# and a stair with guards and a handrail landing on its own footings.
+#
+# Layout: x runs east, y runs south from the back of the porch.
+#   Floor frame   x 0' to 14', y 0' to 12', the front (south) at y = 12'
+#   Posts         three across the back, three across the front, their
+#                 outer faces flush with the frame (centres 2-3/4" in)
+#   Ridge         north-south down the middle, x = 7': the gable ends face
+#                 the back and the front
+#   Stair         down the front from the screen door in the west bay
+#
+# Every load and the soil bearing below are PLACEHOLDERS: the values that
+# come from your building department. Confirm them before you build.
+# 2by is a planning tool, not an engineer. Passing its checks is not an
+# approved design.
+
+# 2by's libraries this design is checked against (docs/materials-plan.md):
+# no revision, so a demo always follows 2by's current ones.
+materials: { lumber: southern-pine, hardware: simpson }
+
+project:
+  slug: screened-porch
+  title: Screened Porch 14x12
+  revision: r1
+  date: 2026-11-07
+  live_psf: 40            # placeholder: confirm with the building department
+  dead_psf: 10            # placeholder: confirm with the building department
+  roof_live_psf: 20       # placeholder: confirm with the building department
+  roof_dead_psf: 10       # placeholder: confirm with the building department
+  allowable_psf: 1500     # placeholder: soil bearing, confirm with the building department
+  deck_top_ft: 3'-0"      # top of the joists; the deck boards' top is 3'-1"
+  guard_above_in: 30      # AWC DCA 6 p.19: an edge more than 30" up needs a guard
+  railing: dca6-fig24     # every stair guard: AWC DCA 6 Figure 24's detail
+
+# No slab: every post stands on its own footing.
+slab:
+  field_in: 0
+  perimeter_in: 0
+  perimeter_width_in: 0
+
+phases:
+  - id: p1
+    name: Floor, stair and posts
+  - id: p2
+    name: Roof and screen walls
+
+# Doubled 2x10 beams: two 1-1/2" sawn plies make a 3" pack.
+ply_fastening:
+  rows: 2
+  spacing_in: 24
+  end_extra: 2
+  confidence: table
+  source: Boise Cascade EWP Specifier Guide, U.S. East, MTP-E7000 Rev. 07/26, p.27 (multiple-ply connections)
+  specs:
+    - for_thickness_in: 3.0     # 2 plies of 1-1/2" sawn
+      kind: sawn
+      part: SDWS FRAMING 0.160 x 2-1/2
+      desc: SDWS FRAMING 0.160 x 2-1/2
+      per_box: 50
+
+decking:
+  board: 5/4x6
+  gap_in: 0.125           # AWC DCA 6 p.3: about 1/8
+  per_joist: 2            # IRC R507.7, DCA 6 p.3
+  fastener: '#8 x 2-1/2" deck screw'
+  code:
+    max_spacing_in: 16    # IRC Table R507.7: 16 for 5/4 laid perpendicular
+    min_supports: 3       # DCA 6 p.3
+    source: IRC Table R507.7; AWC DCA 6 p.3
+
+# ═══════════════ PHASE 1 — FLOOR, STAIR AND POSTS ═══════════════
+#
+# Six 6x6 posts on 24" square pads. The middle two, front and back, carry
+# the ridge as well as the floor, through the posts standing on them.
+posts:
+  - id: P1
+    at: [2-3/4", 2-3/4"]
+    size: 6x6
+    pad_in: 24
+    pad_depth_in: 12
+    perimeter: true
+    phase: p1
+  - id: P2
+    at: [7, 2-3/4"]
+    size: 6x6
+    pad_in: 24
+    pad_depth_in: 12
+    perimeter: true
+    phase: p1
+  - id: P3
+    at: [13'-9-1/4", 2-3/4"]
+    size: 6x6
+    pad_in: 24
+    pad_depth_in: 12
+    perimeter: true
+    phase: p1
+  - id: P4
+    at: [2-3/4", 11'-9-1/4"]
+    size: 6x6
+    pad_in: 24
+    pad_depth_in: 12
+    perimeter: true
+    phase: p1
+  - id: P5
+    at: [7, 11'-9-1/4"]
+    size: 6x6
+    pad_in: 24
+    pad_depth_in: 12
+    perimeter: true
+    phase: p1
+  - id: P6
+    at: [13'-9-1/4", 11'-9-1/4"]
+    size: 6x6
+    pad_in: 24
+    pad_depth_in: 12
+    perimeter: true
+    phase: p1
+
+  # The roof posts: each stands on the deck boards over the floor post
+  # below it, the two joined with a tie plate against uplift. The four
+  # corners carry the plate beams; the middle two carry the ridge beam.
+  - id: R1
+    at: [2-3/4", 2-3/4"]
+    size: 6x6
+    stands_on: P1
+    splice: { part: HTP37Z, count: 1 }
+    phase: p2
+  - id: R2
+    at: [7, 2-3/4"]
+    size: 6x6
+    stands_on: P2
+    splice: { part: HTP37Z, count: 1 }
+    phase: p2
+  - id: R3
+    at: [13'-9-1/4", 2-3/4"]
+    size: 6x6
+    stands_on: P3
+    splice: { part: HTP37Z, count: 1 }
+    phase: p2
+  - id: R4
+    at: [2-3/4", 11'-9-1/4"]
+    size: 6x6
+    stands_on: P4
+    splice: { part: HTP37Z, count: 1 }
+    phase: p2
+  - id: R5
+    at: [7, 11'-9-1/4"]
+    size: 6x6
+    stands_on: P5
+    splice: { part: HTP37Z, count: 1 }
+    phase: p2
+  - id: R6
+    at: [13'-9-1/4", 11'-9-1/4"]
+    size: 6x6
+    stands_on: P6
+    splice: { part: HTP37Z, count: 1 }
+    phase: p2
+
+# The joists sit ON the floor beams (drop), so each beam tops out one 2x10
+# (9-1/4") below the joists' top: 3'-0" less 9-1/4" is 2'-2-3/4".
+beams:
+  - id: B-BACK
+    label: Back floor beam
+    axis: x
+    supports: [P1, P2, P3]
+    from_ft: 0
+    to_ft: 14
+    plies: 2
+    section: 2x10
+    top_ft: 2'-2-3/4"
+    trib_ft: 6
+    phase: p1
+  - id: B-FRONT
+    label: Front floor beam
+    axis: x
+    supports: [P4, P5, P6]
+    from_ft: 0
+    to_ft: 14
+    plies: 2
+    section: 2x10
+    top_ft: 2'-2-3/4"
+    trib_ft: 6
+    phase: p1
+  # A rim across the joists' front ends, at joist level: the stair hangs
+  # from it (AWC DCA 6 Figure 11 for its nailing).
+  - id: RIM-S
+    label: Front rim
+    axis: x
+    at_ft: 11'-11-1/4"
+    from_ft: 0
+    to_ft: 14
+    section: 2x10
+    plies: 1
+    top_ft: 3'-0"
+    trib_ft: 0
+    rim:
+      per_joist: 3          # AWC DCA 6 Figure 11
+      fastener: 10d threaded nail   # DCA 6 Figure 11
+    phase: p1
+
+  # ═══════════ the roof's beams (phase 2) ═══════════
+  #
+  # Heights: deck boards at 3'-1"; the screen door's 80" rough opening on
+  # a 2x4 bottom plate, then the wall's top plate, so the plate beams'
+  # underside is 3'-1" + 1-1/2" + 80" + 1-1/2" = 10'-0" and their top
+  # 10'-9-1/4".
+  - id: PL-W
+    label: West plate beam
+    axis: y
+    supports: [R1, R4]
+    from_ft: 0
+    to_ft: 12
+    plies: 2
+    section: 2x10
+    top_ft: 10'-9-1/4"
+    phase: p2
+  - id: PL-E
+    label: East plate beam
+    axis: y
+    supports: [R3, R6]
+    from_ft: 0
+    to_ft: 12
+    plies: 2
+    section: 2x10
+    top_ft: 10'-9-1/4"
+    phase: p2
+  # The ridge beam carries the top half of every rafter, so the roof pushes
+  # nothing outward onto the plate beams.
+  - id: RIDGE
+    label: Ridge beam
+    axis: y
+    at_ft: 7
+    supports: [R2, R5]
+    from_ft: 0
+    to_ft: 12
+    plies: 2
+    section: 2x12
+    top_ft: 14'-7-1/4"     # flush with the rafters' tops: 6 in 12 off the plates
+    phase: p2
+
+connections:
+  - at: P1
+    member: B-BACK
+    type: notch
+  - at: P2
+    member: B-BACK
+    type: notch
+  - at: P3
+    member: B-BACK
+    type: notch
+  - at: P4
+    member: B-FRONT
+    type: notch
+  - at: P5
+    member: B-FRONT
+    type: notch
+  - at: P6
+    member: B-FRONT
+    type: notch
+  - at: R1
+    member: PL-W
+    type: notch
+  - at: R4
+    member: PL-W
+    type: notch
+  - at: R3
+    member: PL-E
+    type: notch
+  - at: R6
+    member: PL-E
+    type: notch
+  - at: R2
+    member: RIDGE
+    type: notch
+  - at: R5
+    member: RIDGE
+    type: notch
+
+joist_fields:
+  - id: FLOOR
+    label: Porch floor
+    section: 2x10
+    span_axis: y
+    bounds_x: [0, 14]
+    bounds_y: [0, 11'-10-1/2"]   # the front ends butt the rim
+    bears_on: [B-BACK, B-FRONT]
+    framing: drop
+    spacing_in: 16
+    blocking: true
+    phase: p1
+
+stairs:
+  - id: S1
+    label: Front stair
+    from: RIM-S
+    face: south
+    at_ft: 2'-0"            # under the screen door in the west bay
+    lands_at_ft: 0
+    risers: 5               # 3'-0" from the joists' top to grade in 5 risers of 7-3/16"
+    run_in: 11              # two 5-1/2" deck boards per tread
+    width_in: 39            # outside to outside: 36" clear between the stringers
+    stringers: 3
+    stringer_section: 2x12
+    tread_section: 5/4x6
+    treads_per_step: 2
+    riser_section: 5/4x6
+    riser_boards: 1
+    tread_screw: '#8 x 2-1/2" deck screw'
+    top: hung
+    foot:                   # AWC DCA 6 p.22, Figure 34
+      post_section: 4x4
+      footing_in: 10
+      footing_thick_in: 6
+      footing_depth_in: 12
+      block_section: 2x4
+      block_fastener: '#8 wood screw 3-1/2"'
+      block_fasteners: 8
+      code:
+        min_depth_in: 12
+        min_footing_in: 10
+        min_thick_in: 6
+    guards:
+      sides: [west, east]
+      height_in: 34         # AWC DCA 6 Figure 30
+      bottom_gap_in: 1.25   # low enough that the tread-riser-rail triangle stops a 6" sphere (Figure 30)
+      code:
+        min_height_in: 34
+        max_post_spacing_in: 72
+        max_opening_in: 4.375
+        max_triangle_in: 6
+        source: AWC DCA 6 Figure 30
+    handrail:
+      side: east
+      height_in: 36         # AWC DCA 6 p.22: 34 to 38
+      section: 2x2
+      code:
+        min_height_in: 34
+        max_height_in: 38
+        source: AWC DCA 6 p.22
+    code:
+      max_rise_in: 7.75           # AWC DCA 6 Figure 27
+      min_run_in: 10              # Figure 27
+      min_width_in: 36
+      max_stringer_span_in: 72    # AWC DCA 6 Figure 28
+      guard_rise_in: 30           # DCA 6 Figure 30
+      handrail_risers: 4          # DCA 6 p.22
+      max_flight_rise_in: 144     # DCA 6 p.20
+    phase: p1
+
+# ═══════════════ PHASE 2 — ROOF AND SCREEN WALLS ═══════════════
+#
+# A 6 in 12 gable, ridge north-south. The rafters seat on the plate beams
+# and hang from the ridge beam.
+roof:
+  - id: ROOF
+    label: Porch roof
+    type: gable
+    ridge_axis: y
+    bounds_x: [2-3/4", 13'-9-1/4"]   # plate beam centres
+    bounds_y: [2-3/4", 11'-9-1/4"]   # the gable-end rafters over the post centres
+    pitch: 6
+    section: 2x6
+    spacing_in: 16
+    overhang_in: 12
+    rake_overhang_in: 12
+    sheathing: 7/16" OSB
+    roofing: asphalt shingles
+    bears_on: [PL-W, PL-E]
+    ridge_beam: RIDGE
+    phase: p2
+
+# The screen walls: 2x4 studs on a bottom plate on the deck boards, up to a
+# top plate under the plate beams, running post face to post face (no stud
+# against the posts). The floor is more than 30" up, so each wall has a
+# guard framed into it (AWC DCA 6 Figure 24): rails between the studs and
+# 2x2 balusters on them. Screened, not sheathed.
+walls:
+  - id: W-W
+    label: West screen wall
+    from: [0, 5-1/2"]
+    to: [0, 11'-6-1/2"]
+    align: outside
+    section: 2x4
+    bottom_ft: 3'-1"
+    top_ft: 10'-0"
+    spacing_in: 36
+    end_studs: false
+    top_plates: 1
+    bottom_plates: 1
+    bearing: false
+    guard:
+      height_in: 36         # AWC DCA 6 Figure 24
+      rail_section: 2x4
+      baluster_section: 2x2
+      opening_in: 3.5
+      code:
+        min_height_in: 36
+        max_opening_in: 4
+        source: AWC DCA 6 Figure 24
+    phase: p2
+  - id: W-E
+    label: East screen wall
+    from: [14, 5-1/2"]
+    to: [14, 11'-6-1/2"]
+    align: outside
+    section: 2x4
+    bottom_ft: 3'-1"
+    top_ft: 10'-0"
+    spacing_in: 36
+    end_studs: false
+    top_plates: 1
+    bottom_plates: 1
+    bearing: false
+    guard:
+      height_in: 36         # AWC DCA 6 Figure 24
+      rail_section: 2x4
+      baluster_section: 2x2
+      opening_in: 3.5
+      code:
+        min_height_in: 36
+        max_opening_in: 4
+        source: AWC DCA 6 Figure 24
+    phase: p2
+  - id: W-BW
+    label: Back screen wall, west bay
+    from: [5-1/2", 0]
+    to: [6'-9-1/4", 0]
+    align: outside
+    section: 2x4
+    bottom_ft: 3'-1"
+    top_ft: 10'-0"
+    spacing_in: 36
+    end_studs: false
+    top_plates: 1
+    bottom_plates: 1
+    bearing: false
+    guard:
+      height_in: 36         # AWC DCA 6 Figure 24
+      rail_section: 2x4
+      baluster_section: 2x2
+      opening_in: 3.5
+      code:
+        min_height_in: 36
+        max_opening_in: 4
+        source: AWC DCA 6 Figure 24
+    phase: p2
+  - id: W-BE
+    label: Back screen wall, east bay
+    from: [7'-2-3/4", 0]
+    to: [13'-6-1/2", 0]
+    align: outside
+    section: 2x4
+    bottom_ft: 3'-1"
+    top_ft: 10'-0"
+    spacing_in: 36
+    end_studs: false
+    top_plates: 1
+    bottom_plates: 1
+    bearing: false
+    guard:
+      height_in: 36         # AWC DCA 6 Figure 24
+      rail_section: 2x4
+      baluster_section: 2x2
+      opening_in: 3.5
+      code:
+        min_height_in: 36
+        max_opening_in: 4
+        source: AWC DCA 6 Figure 24
+    phase: p2
+  - id: W-FW
+    label: Front screen wall, west bay (the door)
+    from: [5-1/2", 12]
+    to: [6'-9-1/4", 12]
+    align: outside
+    section: 2x4
+    bottom_ft: 3'-1"
+    top_ft: 10'-0"
+    spacing_in: 16          # studs either side of the door, so the bays beside it take the guard
+    end_studs: false
+    top_plates: 1
+    bottom_plates: 1
+    bearing: false
+    guard:
+      height_in: 36         # AWC DCA 6 Figure 24
+      rail_section: 2x4
+      baluster_section: 2x2
+      opening_in: 3.5
+      code:
+        min_height_in: 36
+        max_opening_in: 4
+        source: AWC DCA 6 Figure 24
+    phase: p2
+  - id: W-FE
+    label: Front screen wall, east bay
+    from: [7'-2-3/4", 12]
+    to: [13'-6-1/2", 12]
+    align: outside
+    section: 2x4
+    bottom_ft: 3'-1"
+    top_ft: 10'-0"
+    spacing_in: 36
+    end_studs: false
+    top_plates: 1
+    bottom_plates: 1
+    bearing: false
+    guard:
+      height_in: 36         # AWC DCA 6 Figure 24
+      rail_section: 2x4
+      baluster_section: 2x2
+      opening_in: 3.5
+      code:
+        min_height_in: 36
+        max_opening_in: 4
+        source: AWC DCA 6 Figure 24
+    phase: p2
+
+# The screen door, over the stair.
+openings:
+  - id: DOOR
+    label: Screen door
+    in_wall: W-FW
+    kind: door
+    at_ft: 3'-2"            # its centre, from the wall's west end: over the stair's centre at x = 3'-7-1/2"
+    width_in: 36
+    height_in: 80
